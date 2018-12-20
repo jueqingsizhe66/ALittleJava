@@ -6,7 +6,7 @@ public class Mian {
 		PiemanI y = new PiemanM(new Bot());
 		System.out.println (
 			y.addTop (new AnchovyFish()) + "\n" +
-			y. addTop (new AnchovyFish()) + "\n" +
-			y.substTop (new TunaFish() ,new AnchovyFish())); 
+			y.addTop (new AnchovyFish()) + "\n" +
+			y.substTop (new TunaFish() ,new AnchovyFish()));
 		}
 }
