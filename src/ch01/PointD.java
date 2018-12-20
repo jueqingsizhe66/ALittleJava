@@ -20,12 +20,19 @@ class CartesianPt extends PointD{
 
 //曼哈顿坐标
 
-class ManHattanPt extends PointD{
+class ManHattanPt extends PointD {
 	int x;
 	int y;
+
 	public ManHattanPt(int _x, int _y) {
 		// TODO Auto-generated constructor stub
 		this.x = _x;
 		this.y = _y;
 	}
+
+	@Override
+	public String toString() {
+		return "new" + getClass().getName() + "(" + x + ", " + y + ")";
+	}
+
 }

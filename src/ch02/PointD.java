@@ -48,9 +48,9 @@ class ManHattanPt extends PointD{
 		return x+y;
 	}
 	
-	/*@Override
+	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		//return "new "+this.getClass().getName(); 
-	}*/
+		return "new "+this.getClass().getName()+"("+x+", "+y+")";
+	}
 }
