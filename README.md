@@ -70,6 +70,40 @@ Define-Datetype(Abstract)相当于定义了一个类型，比如KebabD,RobD
                       abstract,new,extends, super, this, interface,implements都在其中有所体现。（感悟！感谢！
                       感恩！)
 
+归纳：怎么把基类的所有行为归到一个accept函数(run，handle等函数),负责侦听服务。
+  公式： datatype  accept   interface (虚线连接，accept在虚线中间)
+        箭头表示extends
+        实现表示implements
+  说明： The method accepts a visitor and asks(问本身代表行为需求) for its(their) service(本身带有功能实现)
+      so we call accept as service!
+      we ask(行为) for services(目的)
+      行为都具有一定目的性。
+
+    P61 归纳了data part to understand what things is. action part to understand how things work
+    P58开始提及data part 和action part
+    数据的抽象是为了进行分层架构，逻辑划分
+    行为的抽象是为了简化代码编写
+
+    P89 在函数式编程 a visitor with fields is called as a closure(带属性的行为叫做closure)
+        通过定义closure的技术手段，结合构造函数，提取行为基类中的仅首次创建对象发生改变的fields
+
+     1. 首先进行行列转置
+     2. 归类为选行为数据基类(所有数据对象extends 行为数据基类, 问题是没有区分开action part和data part
+         目的是为了understand what actions these methods perform
+     3. 把行为V类引入到基类属性 P58
+     4. 把行为V类从属性引入到函数参数中（函数参数一般使用consume和produce进行描述，而在类属性一般使用field进行描述 P74 P86
+        行为V类引入了数据基类的形参，当然在一开始得功能函数中混合行为和数据，则是不需要形参的P58
+        这点为什么需要注意，因为构造函数有两个作用
+        4.1 natural recursion : 基类生成的自定义类，通过构造函数，传递剩余的数据r或者s，行为V类的实例对象函数实参负责接收
+        4.2 行为V类中充当closure(带属性，一般是用于构造函数的consume中）
+     5. 引入this函数 P87, this函数一般在行为V类中使用(得有创建行为对象值得能力)
+     6. 在行为基类中引入构造函数，提取行为属性的不同，构造一个closure，得到函数式编程的closure。
+     7. 引入interface P92 很有意思
+     
+    注意: 当一个类实现一个借口，需增加"Public" ,把他添加实现方法的最前面.
+    P112 boolean,int,TreeD都属于Object，为了统一定义为Object返回类型即可(produce)
+    接口间可以相互extends！！一次继承，多个实现是java的语言特性。
+    
 
 成就点: java8的lambda编程，实现参数的行为化(名词动词话)
 
