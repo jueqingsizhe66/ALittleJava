@@ -179,6 +179,6 @@ SeasoningD: [
 
 
 [1]: https://a-little-java-a-few-patterns.readthedocs.io/zh_CN/latest/
-[2]: https://github.com/jueqingsizhe66/ALittleJava/eval-apply.png
+[2]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/eval-apply.png
 [3]: https://www.researchgate.net/publication/221598672_How_Do_Procurement_Networks_Become_Social_Design_Principles_Evaluation_in_a_Heterogeneous_Environment_of_Structured_and_Unstructured_Interactions
-[4]: https://github.com/jueqingsizhe66/ALittleJava/design.png
+[4]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/design.png
