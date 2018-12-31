@@ -7,6 +7,7 @@ Evaluate(interpret) all the hierarchy objects, apply coresponding operators to e
 [How Do Procurement Networks Become Social? Design Principles Evaluation in a Heterogeneous Environment of Structured and Unstructured Interactions][3]
 
 
+![design][4]
 ## 对象和行为
 
 一个访问模式包含着一片对象和一类行为，行为中又可以根据相同和不同点划分
