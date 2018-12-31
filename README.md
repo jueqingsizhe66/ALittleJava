@@ -1,3 +1,11 @@
+[A little java笔记][1]
+
+Evaluate(interpret) all the hierarchy objects, apply coresponding operators to every objects.
+
+![eval-apply][2]
+
+[How Do Procurement Networks Become Social? Design Principles Evaluation in a Heterogeneous Environment of Structured and Unstructured Interactions][3]
+
 
 ## 对象和行为
 
@@ -168,3 +176,9 @@ SeasoningD: [
          {objects:[]}
             ];
 ```
+
+
+[1]: https://a-little-java-a-few-patterns.readthedocs.io/zh_CN/latest/
+[2]: https://github.com/jueqingsizhe66/ALittleJava/eval-apply.png
+[3]: https://www.researchgate.net/publication/221598672_How_Do_Procurement_Networks_Become_Social_Design_Principles_Evaluation_in_a_Heterogeneous_Environment_of_Structured_and_Unstructured_Interactions
+[4]: https://github.com/jueqingsizhe66/ALittleJava/design.png
