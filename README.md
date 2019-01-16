@@ -76,8 +76,7 @@ Define-Datetype(Abstract)相当于定义了一个类型，比如KebabD,RobD
            这时候你会看到很爽 ，很刺激的感觉。 因为代码量急剧下降了！此时构建新的行为V类也会简单一些。
            
            通过四次进化，得到关键概念： 基类，基函数，行为V类，基函数参数，构造函数，行为基函数，行为自定义V类
-                      abstract,new,extends, super, this, interface,implements都在其中有所体现。（感悟！感谢！
-                      感恩！)
+                      abstract,new,extends, super, this, interface,implements都在其中有所体现。
 
 归纳：怎么把基类的所有行为归到一个accept函数(run，handle等函数),负责侦听服务。
   公式： datatype  accept   interface (虚线连接，accept在虚线中间)
@@ -87,11 +86,30 @@ Define-Datetype(Abstract)相当于定义了一个类型，比如KebabD,RobD
       so we call accept as service!
       we ask(行为) for services(目的)
       行为都具有一定目的性。
+      
+(有一个想法： (many hierarchy objects).accept(一个函数))
+evaluator会不断解析many hierarchy objects,并对解析的object都运用函数进行apply。
+所以这边依然体现着数据和行为分离的思想。数据单独在一块处理，行为又在另一块处理。
+需要写过解释器才会明白这个意思----这里面也有pattern-match的思想（自身对象名和结构函数
+名是一一对应的，而不用像解释器得把语句解析分为，number,symbol,lambda,cond,application等)。
+还有一个三点一线地方--class名字---结构名字----ask.for名字，这三个名字是一致的
 
-    P61 归纳了data part to understand what things is. action part to understand how things work
+比如 
+```java
+public class Top
+{  
+  public Top(){};   
+  public void accept(TopImplements ask){
+    ask.forTop();
+    }
+}
+```
+
+    P61 归纳了data part to understand what things is. action part to understand
+     how things work
     P58开始提及data part 和action part
     数据的抽象是为了进行分层架构，逻辑划分
-    行为的抽象是为了简化代码编写
+    行为的抽象是为了简化代码编写(很有道理)
 
     P89 在函数式编程 a visitor with fields is called as a closure(带属性的行为叫做closure)
         通过定义closure的技术手段，结合构造函数，提取行为基类中的仅首次创建对象发生改变的fields
@@ -109,7 +127,7 @@ Define-Datetype(Abstract)相当于定义了一个类型，比如KebabD,RobD
      6. 在行为基类中引入构造函数，提取行为属性的不同，构造一个closure，得到函数式编程的closure。
      7. 引入interface P92 很有意思
      
-    注意: 当一个类实现一个借口，需增加"Public" ,把他添加实现方法的最前面.
+    注意: 当一个类实现一个接口，需增加"Public" ,把他添加实现方法的最前面.
     P112 boolean,int,TreeD都属于Object，为了统一定义为Object返回类型即可(produce)
     接口间可以相互extends！！一次继承，多个实现是java的语言特性。
     
