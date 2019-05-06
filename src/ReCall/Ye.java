@@ -20,7 +20,21 @@ public class Ye {
         /**
          * 小叶办完事情后，想到了答案
          */
-        String result = "答案时2";
+        String result = "";
+       if(callback instanceof Wang){
+           result = "王先生，您要的答案是2";
+       }else if (callback instanceof Stranger){
+
+           /**
+            * 小叶思考了一阵子，这是谁啊！不认识
+            */
+           for (int i = 0; i < 10000; i++) {
+
+           }
+           result = "不好意思 ， 有点忙";
+       }else{
+           result = "不明白你的问题";
+       }
 
         /**
          * 于是就打电话告诉老王，调用老王的方法
