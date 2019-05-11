@@ -22,7 +22,7 @@ class RemV implements PieVistor1{
 		if(o.equals(t)){
 			return r.accept(this); //this指代Remv对象
 		}else{
-			return new Top(o,r.accept(this));
+			return new Top(t,r.accept(this));
 		}
 	}
 }
@@ -98,7 +98,10 @@ class Bot extends PieD{
 		return ask.forBot();
 	}
 
-	
+	public String toString() {
+		return "new " + getClass().getName() ;
+	}
+
 }
 
 class Top extends PieD{
@@ -115,7 +118,9 @@ class Top extends PieD{
 		// TODO Auto-generated method stub
 		return ask.forTop(t, r);
 	}
-	
-	
+	public String toString() {
+		return "new " + getClass().getName() + "(" + t + ", " +r + ")";
+	}
+
 }
 

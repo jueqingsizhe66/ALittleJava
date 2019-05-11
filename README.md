@@ -149,7 +149,8 @@ class Cheese extends PizzaD{
           在鸭子的自定义类中只是去调用V类的对应行为，当然你也可以说上面的方法也可以，我只要到对应鸭
           子类的对应行为修改就可以了，好正如上面说的，这种转置变换到此时并没有太多的进步)
 
-中间变异原基示例:(原基引入访问者)
+中间变异原基示例:(原基引入访问者)，而在原基定义的函数也叫作基函数(基本功能、基本功能，在其他访问者接口
+实现具体功能)
 ```java
 
 public abstract class PieD { //比萨饼
@@ -205,6 +206,8 @@ public abstract class YangRouChuan {
 }
 ```        
 
+
+
 完整行为变异接口(有从abstract过渡到interface)
 ```java
 
@@ -231,11 +234,121 @@ public abstract class YangRouChuan {
           这时候你会去分析行为的异同，对行为接口基函数的实现，和基类基函数(基向量、特征向量)的实现分开， 
           你需要对基类进行修正， 行为V类已经通过行为基类结合在一起，那么对应的基类的基函数，
           也得用行为基类进行了 行为基函数得浓缩为一个函数，accept(第四次进化很丰富，统一为accept)
+          (interface的出现也带来了accept函数的归并...参考P92)
           基类基函数只存在一个accept函数了这时候你会看到很爽 ，很刺激的感觉。 因为代码量急剧下降了！
           此时构建新的行为V类也会简单一些。
            
          通过四次进化，得到关键概念： 基类(行为基类)，行为V类，基函数，函数参数，构造函数，行为基函数，行为自定义V类
                       abstract,new,extends, super, this, interface,implements都在其中有所体现。
+
+##### closure的出现
+另外由于行为追加了行为属性，把一些不变的属性纳入行为的字段，通过构造函数幅值，不需要handle forward and back
+传来传去，直接用that.t 和that.r来代替,这也叫做闭包(行为追加属性)。
+可以参考第五步的SubstV
+
+#### 第五步 统一结构为that 气动为this
+
+也就是把SubstV 和RemV的forTop等函数的参数通过增加(Top that)来代替，因为结构类中已经追加了
+结构属性(在Top Bot等初始原基和非初始原基中增加属性)
+
+```java
+class SubstV implements PieVistor1{
+	Object n;
+	Object o;
+	public SubstV(Object _n, Object _o) {
+		// TODO Auto-generated constructor stub
+		this.n = _n;
+		this.o = _o;
+	}
+	public Object forBot()
+	{
+		return new Bot();
+	}
+	public Object forTop(Object t,PieD r){
+		if(o.equals(t)){
+			return new Top(n,(PieD)r.accept(this));
+		}else{
+			return new Top(t,(PieD)r.accept(this));
+		}
+	}
+}
+
+```
+
+修改为：(参考为ch081That包)
+```java
+
+class Top extends PieDUpdate {
+
+    Object t;
+    PieDUpdate r;
+    public Top(Object t, PieDUpdate r) {
+        // TODO Auto-generated constructor stub
+        this.t = t;
+        this.r = r;
+    }
+    @Override
+    PieDUpdate accept(PieVistor1 ask) {
+        // TODO Auto-generated method stub
+        return ask.forTop(this);
+    }
+    public String toString() {
+        return "new " + getClass().getName() + "(" + this.t + ", " + this.r + ")";
+    }
+}
+
+//因为RemV SubstV Bot Top四个类极度相似，于是继续抽象。
+interface PieVistor1{
+    PieDUpdate forBot(Bot that);
+    PieDUpdate forTop(Top that);
+}
+
+class RemV implements PieVistor1{
+    Object o;
+    public RemV(Object _o) {
+        // TODO Auto-generated constructor stub
+        this.o = _o;
+    }
+    //为什么要改为Public???
+    public PieDUpdate forBot(Bot that){
+        return new Bot();
+    }
+    //改用Object即可
+    //public PieDUpdate forTop(Object t, PieDUpdate r){ //不能用int
+     public PieDUpdate forTop(Top that){ //不能用int
+        if(o.equals(that.t)){
+            return that.r.accept(this); //this指代Remv对象
+        }else{
+            return new Top(that.t,that.r.accept(this));
+        }
+    }
+}
+```
+结果
+```java
+
+new ch0801That.Top(5, new ch0801That.Top(10, new ch0801That.Bot))
+new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801That.Bot)))
+new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801That.Top(3, new ch0801That.Top(13, new ch0801That.Top(3, new ch0801That.Bot))))))
+new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801That.Top(300, new ch0801That.Top(13, new ch0801That.Top(3, new ch0801That.Bot))))))
+new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801That.Top(300, new ch0801That.Top(13, new ch0801That.Top(300, new ch0801That.Bot))))))
+```
+#### PiemanM的作用
+
+只不过是为了侧是方便，在初始原基的基础上可以不断add,rem等基本函数特性。
+
+概念总结：
+
+原基：结构类，rem,subst等最终归并为accept，返回值boolean,int,TreeD等也归并为Object，参数均归并为访问者对象
+
+初始原基: 一般代表递归的结束，直接返回对象
+非初始原基(可吃原基):一般代表natural recursion，可以不断递归
+
+行为V类：气动类，用于归并行为 比如早先的subst,rem等
+行为接口: 气动类，比如PieVisitor， 提供forBot，forTop等服务，总结仍不到位!
+行为变异接口：比如SubstV，RemV，LstSubstV,UnionV等
+
+---------------------------------------------------------------------------------
 
 归纳：怎么把基类的所有行为归到一个accept函数(run，handle等函数),负责侦听服务。
   公式： datatype  accept   interface (虚线连接，accept在虚线中间)
@@ -271,9 +384,20 @@ public class Top
     数据的抽象是为了进行分层架构，逻辑划分
     行为的抽象是为了简化代码编写，实现多接口编程
 
+    P87 首次引入了this，表明行为接口对象，至此使用this，简化行为接口对象。
     P89 在函数式编程 a visitor with fields is called as a closure(带属性的行为叫做closure)
         通过定义closure的技术手段，结合构造函数，提取行为基类中的仅首次创建对象发生改变的fields
-
+    P92 首次引入interface的概念，直接引入，替换掉abstract，使用implements实现interface,由此首次
+    规约rem和subst等为accept（最大的基函数, 包含所有的rem，substv，occurs，has等)
+    P93 首次把ask当做VisitorI的形参名字，ask for service,所以使用改名字代表PieVistor的参数名字
+    至此完成了几乎全部工作
+    P112 首次采用Object类统一所有int,boolean,Tree等类型规约返回值（可能涉及装箱拆箱的过程),比如P114
+    P118 开始封装数字和集合四则运算
+    P150 拓展了接口UnionVisitor<-------------------可以多学习该思想， P157给出拓展图
+    P167 引入了that，在行为接口的对应函数引入Top that和Bot that，指代初始原基和非初始原基P168
+    很有意思，仔细看看，ask.forTop(this) 这么神奇？缩减形参列表统一为初始原基或非初始原基，用结构字段
+    来代替形参（事先已在...引入结构属性, 比如不断递归的循环体-一般是原基字段，即原基类的对象名)。
+    
      1. 首先进行行列转置
      2. 归类为选行为数据基类(所有数据对象extends 行为数据基类, 问题是没有区分开action part和data part
          目的是为了understand what actions these methods perform

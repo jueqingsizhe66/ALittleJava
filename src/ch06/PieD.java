@@ -40,11 +40,11 @@ class TunaFish extends FishD{
 
 /*//删除指定鱼的方法
 class RemFishV{
-	PieD forBot(FishD f){
+	PieDUpdate forBot(FishD f){
 		return new Bot();
 	}
 	//不太明白
-	PieD forTop(Object t,PieD r, FishD f){
+	PieDUpdate forTop(Object t,PieDUpdate r, FishD f){
 		if(f.equals(t)){
 			return r.remA(this,f);
 		}else{
@@ -55,11 +55,11 @@ class RemFishV{
 
 //删除指定的整数
 class RemFishInt{
-	PieD forBot(FishD f){
+	PieDUpdate forBot(FishD f){
 		return new Bot();
 	}
 	//不太明白
-	PieD forTop(Object t,PieD r, Integer f){ //不能用int
+	PieDUpdate forTop(Object t,PieDUpdate r, Integer f){ //不能用int
 		if(f.equals(t)){
 			return r.remA(f);
 		}else{
@@ -87,11 +87,11 @@ class RemV{
 
 /*//增加一个替换操作
 class SubstFishV{
-	PieD forBot(FishD n,FishD o)
+	PieDUpdate forBot(FishD n,FishD o)
 	{
 		return new Bot();
 	}
-	PieD forTop(Object t,PieD r,FishD n,FishD o){
+	PieDUpdate forTop(Object t,PieDUpdate r,FishD n,FishD o){
 		if(o.equals(t)){
 			return new Top(n,r.substFish(new SubstFishV(),n,o));
 		}else{
@@ -102,11 +102,11 @@ class SubstFishV{
 
 
 class SubstIntV{
-	PieD forBot(Integer n,Integer o)
+	PieDUpdate forBot(Integer n,Integer o)
 	{
 		return new Bot();
 	}
-	PieD forTop(Object t,PieD r,Integer n,Integer o){
+	PieDUpdate forTop(Object t,PieDUpdate r,Integer n,Integer o){
 		if(o.equals(t)){
 			return new Top(n,r.substFish(n,o));
 		}else{

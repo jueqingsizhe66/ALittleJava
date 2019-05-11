@@ -1,0 +1,48 @@
+<html><head><title>Stranger.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="sourcestyles.css" />
+</head><body link="blue" vlink="blue">
+<h3>File: K:\IntellijHome\The-Little-Java\src\ReCall\Stranger.java</h3>
+<SCRIPT>
+defaultStatus = "File: K:\\IntellijHome\\The-Little-Java\\src\\ReCall\\Stranger.java";
+top.document.title  = "Stranger.java";
+</SCRIPT>
+<pre><span class="default"></span><a name="1"><font size=-1>1     </font></a><span class="default"></span><span class="keyword">package <a href="dictionary_R.html#3568">ReCall</a></span><span class="default">;</span>
+<a name="2"><font size=-1>2     </font></a><span class="default"></span>
+<a name="3"><font size=-1>3     </font></a><span class="default"></span><span class="keyword">public class <a href="dictionary_R.html#3569">Stranger</a> implements <a href="dictionary_R.html#4127">Callback</a> </span><span class="default">{</span>
+<a name="4"><font size=-1>4     </font></a><span class="default">    </span><span class="keyword">private <a href="dictionary_R.html#3571">Ye</a> <a href="dictionary_R.html#5882">ye</a></span><span class="default">;</span>
+<a name="5"><font size=-1>5     </font></a><span class="default">    </span><span class="keyword">public <a href="dictionary_R.html#3573">Stranger</a></span><span class="default">(<a href="dictionary_R.html#3571">Ye</a> <a href="dictionary_R.html#5875">ye</a>){</span>
+<a name="6"><font size=-1>6     </font></a><span class="default">        </span><span class="keyword">this</span><span class="default">.<a href="dictionary_R.html#5882">ye</a> =<a href="dictionary_R.html#5875">ye</a>;</span>
+<a name="7"><font size=-1>7     </font></a><span class="default">    }</span>
+<a name="8"><font size=-1>8     </font></a><span class="default"></span>
+<a name="9"><font size=-1>9     </font></a><span class="default"></span>
+<a name="10"><font size=-1>10     </font></a><span class="default">    </span><span class="keyword">public void <a href="dictionary_R.html#3575">askQuestion</a></span><span class="default">(</span><span class="keyword">final </span><span class="default">String <a href="dictionary_R.html#5880">question</a>){</span>
+<a name="11"><font size=-1>11     </font></a><span class="default">        </span><span class="keyword">new </span><span class="default">Thread(</span><span class="keyword">new </span><span class="default">Runnable() {</span>
+<a name="12"><font size=-1>12     </font></a><span class="default">            @Override</span>
+<a name="13"><font size=-1>13     </font></a><span class="default">            </span><span class="keyword">public void <a href="dictionary_R.html#5879">run</a></span><span class="default">() {</span>
+<a name="14"><font size=-1>14     </font></a><span class="default">                </span><span class="comment">/**</span>
+<a name="15"><font size=-1>15     </font></a><span class="comment">                 * 陌生人调用小叶的方法，在这里注册会掉借口</span>
+<a name="16"><font size=-1>16     </font></a><span class="comment">                 * A类调用B的方法C</span>
+<a name="17"><font size=-1>17     </font></a><span class="comment">                 * 实现和继承都是一种子类的实现方法</span>
+<a name="18"><font size=-1>18     </font></a><span class="comment">                 */</span>
+<a name="19"><font size=-1>19     </font></a><span class="comment">                <a href="dictionary_R.html#5882">ye</a></span><span class="default">.<a href="dictionary_R.html#4121">executeMessage</a>(<a href="dictionary_R.html#3569">Stranger</a>.</span><span class="keyword">this</span><span class="default">,<a href="dictionary_R.html#5880">question</a>);</span>
+<a name="20"><font size=-1>20     </font></a><span class="default">            }</span>
+<a name="21"><font size=-1>21     </font></a><span class="default">        }).start();</span>
+<a name="22"><font size=-1>22     </font></a><span class="default"></span>
+<a name="23"><font size=-1>23     </font></a><span class="default">        </span><span class="comment">/**</span>
+<a name="24"><font size=-1>24     </font></a><span class="comment">         * 老王问完问题 挂掉电话就去出差了</span>
+<a name="25"><font size=-1>25     </font></a><span class="comment">         */</span>
+<a name="26"><font size=-1>26     </font></a><span class="comment">        <a href="dictionary_R.html#5881">play</a></span><span class="default">();</span>
+<a name="27"><font size=-1>27     </font></a><span class="default">    }</span>
+<a name="28"><font size=-1>28     </font></a><span class="default"></span>
+<a name="29"><font size=-1>29     </font></a><span class="default">    </span><span class="keyword">private void <a href="dictionary_R.html#5881">play</a></span><span class="default">() {</span>
+<a name="30"><font size=-1>30     </font></a><span class="default">        System.out.println(</span><span class="string">&quot;叶老师：\&quot;我先忙其他事情了，麻烦您到时候联系我\&quot;&quot;</span><span class="default">);</span>
+<a name="31"><font size=-1>31     </font></a><span class="default">    }</span>
+<a name="32"><font size=-1>32     </font></a><span class="default"></span>
+<a name="33"><font size=-1>33     </font></a><span class="default">    @Override</span>
+<a name="34"><font size=-1>34     </font></a><span class="default">    </span><span class="keyword">public void <a href="dictionary_R.html#5876">accept</a></span><span class="default">(String <a href="dictionary_R.html#5877">result</a>) {</span>
+<a name="35"><font size=-1>35     </font></a><span class="default">        System.out.println(</span><span class="string">&quot;小叶告诉陌生人的答案是:&quot;</span><span class="default">+<a href="dictionary_R.html#5877">result</a>);</span>
+<a name="36"><font size=-1>36     </font></a><span class="default">    }</span>
+<a name="37"><font size=-1>37     </font></a><span class="default">}</span>
+<a name="38"><font size=-1>38     </font></a><span class="default"></span>
+</pre></body></html>
