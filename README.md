@@ -790,6 +790,21 @@ for(RedDuck t, ...)
 
 所以暂时放弃！可以通过代理方法等，进一步简化调用过程。
 
+### 逻辑6
+
+后来发现DuckVisitor ask 变成ThingVisitor prepare 
+那么以后你就可以定义很多thingObject, 比如审查对象(CheckThing)，提交对象(SubmitThing), 
+
+prepare.ForCheck(Thing..)
+prepare.ForSubmit(Thing..)
+prepare.ForUpdate(Thing..)
+prepare.ForUpgrade(Thing..)
+prepare.ForChildRen(Thing..)
+prepare.ForWedding(Thing..)
+prepare.ForTourist(Thing..)
+prepare.ForExamination(Thing..)
+prepare.ForPractice(Thing..)
+
 
 ---------------------------------------------------------------------------------
 
