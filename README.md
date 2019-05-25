@@ -13,6 +13,7 @@ Introspect 和 retrospect具有类似的地方(review ,look back on, backcall)
 ## 对象和行为
 
 
+
 一个访问模式包含着一片对象和一类行为，行为中又可以根据相同和不同点划分
 不同的风格(style)和类别
 
@@ -56,14 +57,14 @@ terminal element 相当于 0, 1,null?的作用(类似下文的所有初始原基
 ``` scheme
 
 (define equal1?
-  (lambda (s1 s2)
-    (cond
-      ((and (atom? s1) (atom? s2))
-       (eqan? s1 s2))
-      ((or (atom? s1) (atom? s1))
-       #f)
-      (else
-       (eqlist? s1 s2)))))
+(lambda (s1 s2)
+(cond
+((and (atom? s1) (atom? s2))
+(eqan? s1 s2))
+((or (atom? s1) (atom? s1))
+#f)
+(else
+(eqlist? s1 s2)))))
 
 ```
 
@@ -77,21 +78,21 @@ terminal element 相当于 0, 1,null?的作用(类似下文的所有初始原基
 ;;;
 ;;;
 (define insert-g
-  (lambda (seq)
-    (lambda (new old l)
-      (cond
-        ((null? l) (quote ()))
-        ((eq? (car l) old)
-         (seq new old (cdr l)))
-        (else (cons (car l)
-                    ((insert-g seq) new old
-                                    (cdr l))))))))
+(lambda (seq)
+(lambda (new old l)
+(cond
+((null? l) (quote ()))
+((eq? (car l) old)
+(seq new old (cdr l)))
+(else (cons (car l)
+((insert-g seq) new old
+(cdr l))))))))
 ;;; So we can define insertL again with insert-g *****************************^-^************************************
 ;;; Do not pass in seqL this time.
 (define insertL1
-  (insert-g
-    (lambda (new old l)
-      (cons new (cons old l)))))
+(insert-g
+(lambda (new old l)
+(cons new (cons old l)))))
 
 ```
 ----------------------------------------------------------------------------------
@@ -144,18 +145,18 @@ class Crust extends PizzaD{ //面包皮  区分下面的各个料
 
 @Override
 PizzaD remA() {
-    // TODO Auto-generated method stub
-    return new Crust();
+// TODO Auto-generated method stub
+return new Crust();
 }
 @Override
 PizzaD topAwC() {
-    // TODO Auto-generated method stub
-    return new Crust();
+// TODO Auto-generated method stub
+return new Crust();
 }
 @Override
 PizzaD subAwC() {
-    // TODO Auto-generated method stub
-    return new Crust();
+// TODO Auto-generated method stub
+return new Crust();
 }//面包皮
 }
 ```
@@ -167,23 +168,23 @@ class Cheese extends PizzaD{
 
 PizzaD p;
 public Cheese(PizzaD _p) {
-    // TODO Auto-generated constructor stub
-    this.p = _p;
+// TODO Auto-generated constructor stub
+this.p = _p;
 }
 @Override
 PizzaD remA() {
-    // TODO Auto-generated method stub
-    return new Cheese(p.remA());
+// TODO Auto-generated method stub
+return new Cheese(p.remA());
 }
 @Override
 PizzaD topAwC() {
-    // TODO Auto-generated method stub
-    return new Cheese(p.topAwC());
+// TODO Auto-generated method stub
+return new Cheese(p.topAwC());
 }
 @Override
 PizzaD subAwC() {
-    // TODO Auto-generated method stub
-    return new Cheese(p.subAwC());
+// TODO Auto-generated method stub
+return new Cheese(p.subAwC());
 } //奶酪pizzad
 }
 ```
@@ -210,11 +211,11 @@ PizzaD subAwC() {
 
 public abstract class PieD { //比萨饼
 
-    //定义两个访问者
-    //RemV remFn = new RemV();
-    //SubstV subFn = new SubstV();
-    abstract PieD remA(RemV remFn);
-    abstract PieD substFish(SubstV subFn);
+//定义两个访问者
+//RemV remFn = new RemV();
+//SubstV subFn = new SubstV();
+abstract PieD remA(RemV remFn);
+abstract PieD substFish(SubstV subFn);
 }
 ```
 
@@ -225,7 +226,7 @@ public abstract class PieD { //比萨饼
 ```java
 
 abstract class TreeD {
-    abstract Object accept(TreeVisitorI ask);
+abstract Object accept(TreeVisitorI ask);
 
 } // 树
 
@@ -237,18 +238,18 @@ abstract class TreeD {
 
 //增加两个访问者
 class OnlyOnionsV{
-    boolean forSkewer(){  //串
-        return true;
-    }
-    boolean forOnion(YangRouChuan y){
-        return y.onlyOnions();
-    }
-    boolean forLamb(YangRouChuan y){
-        return false;
-    }
-    boolean forTomato(YangRouChuan y){
-    return false;
-    }
+boolean forSkewer(){  //串
+return true;
+}
+boolean forOnion(YangRouChuan y){
+return y.onlyOnions();
+}
+boolean forLamb(YangRouChuan y){
+return false;
+}
+boolean forTomato(YangRouChuan y){
+return false;
+}
 }
 
 
@@ -256,10 +257,10 @@ public abstract class YangRouChuan {
 
 //增加两个对象----注意可以把两个字段放入形参中，这是你知道的---然后进一步浓缩boolean为Object
 /// 并且浓缩OnlyOnionsV 和IsVegetarianV为InterfaceV统一行为接口
-    OnlyOnionsV ooFn = new OnlyOnionsV();
-    IsVegetarianV ivFn = new IsVegetarianV();
-    abstract boolean onlyOnions();//烤串上是不是只有洋葱
-    abstract boolean isVegetarian();//烤串上是不是全是蔬菜
+OnlyOnionsV ooFn = new OnlyOnionsV();
+IsVegetarianV ivFn = new IsVegetarianV();
+abstract boolean onlyOnions();//烤串上是不是只有洋葱
+abstract boolean isVegetarian();//烤串上是不是全是蔬菜
 }
 ```
 
@@ -270,9 +271,9 @@ public abstract class YangRouChuan {
 ```java
 
 interface  TreeVisitorI{
-    Object forBud();
-    Object forFlat(FruitD f, TreeD t);
-    Object forSplit(TreeD l,TreeD t);
+Object forBud();
+Object forFlat(FruitD f, TreeD t);
+Object forSplit(TreeD l,TreeD t);
 }
 
 ```
@@ -312,24 +313,24 @@ abstract,new,extends, super, this, interface,implements都在其中有所体现�
 
 ```java
 class SubstV implements PieVistor1{
-    Object n;
-    Object o;
-    public SubstV(Object _n, Object _o) {
-        // TODO Auto-generated constructor stub
-        this.n = _n;
-        this.o = _o;
-    }
-    public Object forBot()
-    {
-        return new Bot();
-    }
-    public Object forTop(Object t,PieD r){
-        if(o.equals(t)){
-            return new Top(n,(PieD)r.accept(this));
-        }else{
-            return new Top(t,(PieD)r.accept(this));
-        }
-    }
+Object n;
+Object o;
+public SubstV(Object _n, Object _o) {
+// TODO Auto-generated constructor stub
+this.n = _n;
+this.o = _o;
+}
+public Object forBot()
+{
+return new Bot();
+}
+public Object forTop(Object t,PieD r){
+if(o.equals(t)){
+return new Top(n,(PieD)r.accept(this));
+}else{
+return new Top(t,(PieD)r.accept(this));
+}
+}
 }
 
 ```
@@ -339,48 +340,48 @@ class SubstV implements PieVistor1{
 
 class Top extends PieDUpdate {
 
-    Object t;
-    PieDUpdate r;
-    public Top(Object t, PieDUpdate r) {
-        // TODO Auto-generated constructor stub
-        this.t = t;
-        this.r = r;
-    }
-    @Override
-    PieDUpdate accept(PieVistor1 ask) {
-        // TODO Auto-generated method stub
-        return ask.forTop(this);
-    }
-    public String toString() {
-        return "new " + getClass().getName() + "(" + this.t + ", " + this.r + ")";
-    }
+Object t;
+PieDUpdate r;
+public Top(Object t, PieDUpdate r) {
+// TODO Auto-generated constructor stub
+this.t = t;
+this.r = r;
+}
+@Override
+PieDUpdate accept(PieVistor1 ask) {
+// TODO Auto-generated method stub
+return ask.forTop(this);
+}
+public String toString() {
+return "new " + getClass().getName() + "(" + this.t + ", " + this.r + ")";
+}
 }
 
 //因为RemV SubstV Bot Top四个类极度相似，于是继续抽象。
 interface PieVistor1{
-    PieDUpdate forBot(Bot that);
-    PieDUpdate forTop(Top that);
+PieDUpdate forBot(Bot that);
+PieDUpdate forTop(Top that);
 }
 
 class RemV implements PieVistor1{
-    Object o;
-    public RemV(Object _o) {
-        // TODO Auto-generated constructor stub
-        this.o = _o;
-    }
-    //为什么要改为Public???
-    public PieDUpdate forBot(Bot that){
-        return new Bot();
-    }
-    //改用Object即可
-    //public PieDUpdate forTop(Object t, PieDUpdate r){ //不能用int
-    public PieDUpdate forTop(Top that){ //不能用int
-        if(o.equals(that.t)){
-            return that.r.accept(this); //this指代Remv对象
-        }else{
-            return new Top(that.t,that.r.accept(this));
-        }
-    }
+Object o;
+public RemV(Object _o) {
+// TODO Auto-generated constructor stub
+this.o = _o;
+}
+//为什么要改为Public???
+public PieDUpdate forBot(Bot that){
+return new Bot();
+}
+//改用Object即可
+//public PieDUpdate forTop(Object t, PieDUpdate r){ //不能用int
+public PieDUpdate forTop(Top that){ //不能用int
+if(o.equals(that.t)){
+return that.r.accept(this); //this指代Remv对象
+}else{
+return new Top(that.t,that.r.accept(this));
+}
+}
 }
 ```
 结果
@@ -411,24 +412,24 @@ new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801T
 
 ```java
 class SubstV implements PieVisitorI {
-    Object n;
-    Object o;
-    SubstV(Object _n, Object _o) {
-        n = _n;
-        o = _o;
-    }
-    public Object forBot(Bot that) {
-        return that; // interesting
-    }
-    public Object forTop(Top that) {
-        if (o.equals(that.t))
-            that.t = n;
-            that.r.accept(this);
-            return that; // interesting
-        else
-            that.r.accept(this);
-            return that; // interesting
-    }
+Object n;
+Object o;
+SubstV(Object _n, Object _o) {
+n = _n;
+o = _o;
+}
+public Object forBot(Bot that) {
+return that; // interesting
+}
+public Object forTop(Top that) {
+if (o.equals(that.t))
+that.t = n;
+that.r.accept(this);
+return that; // interesting
+else
+that.r.accept(this);
+return that; // interesting
+}
 }
 ```
 
@@ -456,11 +457,11 @@ evaluator会不断解析many hierarchy objects,并对解析的object都运用函
 
 public class Top
 {  
-    public Top(){};   
+public Top(){};   
 
-    public void accept(TopImplements ask){
-        ask.forTop();
-    }
+public void accept(TopImplements ask){
+ask.forTop();
+}
 }
 ```
 
@@ -615,12 +616,12 @@ Ye也不是随便回答问题，针对不同的Instance有不同的解决方案�
 ``` java
 
 public abstract class Duck { //比萨饼
-	
-	//定义两个访问者
-	//FlyV flyFn = new FlyV();
-	//EatV eatFn = new EatV();
-	abstract Duck flyA(FlyV flyFn);
-	abstract Duck eatA(EatV eatFn);
+
+//定义两个访问者
+//FlyV flyFn = new FlyV();
+//EatV eatFn = new EatV();
+abstract Duck flyA(FlyV flyFn);
+abstract Duck eatA(EatV eatFn);
 }
 
 ```
@@ -635,70 +636,70 @@ public abstract class Duck { //比萨饼
 
 ``` java
 
- interface  DuckVisitorI{
-	  Object forDuck(); //初始原基
-	  Object forBlackDuck(Duck d); //非初始原基
-	  Object forWhiteDuck(Duck d); //非初始原基
-	  Object forBlueDuck(Duck d); //非初始原基
-	  Object forRedDuck(Duck d); //非初始原基
-      .....
+interface  DuckVisitorI{
+Object forDuck(); //初始原基
+Object forBlackDuck(Duck d); //非初始原基
+Object forWhiteDuck(Duck d); //非初始原基
+Object forBlueDuck(Duck d); //非初始原基
+Object forRedDuck(Duck d); //非初始原基
+.....
 
-  }
+}
 ```
 
-  然后我又定义了具体的飞类
+然后我又定义了具体的飞类
 
-  class FlyV implements DuckVistorI{
+class FlyV implements DuckVistorI{
 
-  ```java
-  
-	  Object forDuck()
-      {
-             printf("feifei");
-      }//初始原基
-      Object forBlackDuck(Duck d,...){
-             printf("lala");
-      } //非初始原基
-      Object forWhiteDuck(Duck d,...){
-            printf("dudu");
-      } //非初始原基
-      Object forBlueDuck(Duck d,...){
-            printf("tutu");
-      } //非初始原基
-      Object forRedDuck(Duck d,...){
-            printf("dodo");
-      } //非初始原基
-    .....
-  }
-  ```
+```java
 
-  类似方法定义其他吃类等
+Object forDuck()
+{
+printf("feifei");
+}//初始原基
+Object forBlackDuck(Duck d,...){
+printf("lala");
+} //非初始原基
+Object forWhiteDuck(Duck d,...){
+printf("dudu");
+} //非初始原基
+Object forBlueDuck(Duck d,...){
+printf("tutu");
+} //非初始原基
+Object forRedDuck(Duck d,...){
+printf("dodo");
+} //非初始原基
+.....
+}
+```
 
-  然后我生成鸭子类只需要实现基类的accept接口即可
+类似方法定义其他吃类等
 
-  ``` java
+然后我生成鸭子类只需要实现基类的accept接口即可
 
-   abstract class DuckD {
-	   abstract Object accept(DuckVisitorI ask);
-	  
-   } // 鸭子原基(初始原基对象意味着循环的终止，非初始原基迭代继续，初始原基和非初始原基均基于原基)
-   //初始原基构造函数一般为空(比如Bot)，非初始原基构造函数一般为初始原基(比如Top)
-   
-  ```
- 
- 我研究的第一个黑鸭子
+``` java
 
- ```java
- 
-   abstract class BlackDuck {
-   Object accept(DuckVisitorI ask){
-      ask.forBalckDuck(...); //我只要在forBlackDuck写上行为即可
-   }
-	  
-   } 
- ```
+abstract class DuckD {
+abstract Object accept(DuckVisitorI ask);
 
- 以此类推，现在定义鸭子很简单
+} // 鸭子原基(初始原基对象意味着循环的终止，非初始原基迭代继续，初始原基和非初始原基均基于原基)
+//初始原基构造函数一般为空(比如Bot)，非初始原基构造函数一般为初始原基(比如Top)
+
+```
+
+我研究的第一个黑鸭子
+
+```java
+
+abstract class BlackDuck {
+Object accept(DuckVisitorI ask){
+ask.forBalckDuck(...); //我只要在forBlackDuck写上行为即可
+}
+
+} 
+```
+
+以此类推，现在定义鸭子很简单
 
 ### 逻辑4
 
@@ -711,46 +712,46 @@ public abstract class Duck { //比萨饼
 ```java
 
 class FlyV implements DuckVistor1{
-	Object n;
-	Object o;
-	public FlyV(Object _n, Object _o) {
-		// TODO Auto-generated constructor stub
-		this.n = _n;
-		this.o = _o;
-	}
-	public Object forBlackDuck(BlackDuck that)
-	{
-		return new Duck();
-	}
-	//public Object forRedDuck(Object t,PieD r){
-	public Object forRedDuck(RedDuck that){
-		if(o.equals(that.t)){
-			return new RedDuck(n,(PieD)that.r.accept(this));
-		}else{
-			return new RedDuck(that.t,(PieD)r.accept(this));
-		}
-	}
+Object n;
+Object o;
+public FlyV(Object _n, Object _o) {
+// TODO Auto-generated constructor stub
+this.n = _n;
+this.o = _o;
+}
+public Object forBlackDuck(BlackDuck that)
+{
+return new Duck();
+}
+//public Object forRedDuck(Object t,PieD r){
+public Object forRedDuck(RedDuck that){
+if(o.equals(that.t)){
+return new RedDuck(n,(PieD)that.r.accept(this));
+}else{
+return new RedDuck(that.t,(PieD)r.accept(this));
+}
+}
 }
 
 class EatV implements DuckVistor1{
-    Object o;
-    public EatV(Object _o) {
-        // TODO Auto-generated constructor stub
-        this.o = _o;
-    }
-    //为什么要改为Public???
-    public Duck forBlackDuck(BlackDuck that){
-        return new Bot();
-    }
-    //改用Object即可
-    //public Duck forTop(Object t, Duck r){ //不能用int
-     public Duck forRedDuck(Redduck that){ //不能用int
-        if(o.equals(that.t)){
-            return that.r.accept(this); //this指代Remv对象
-        }else{
-            return new RedDuck(that.t,that.r.accept(this));
-        }
-    }
+Object o;
+public EatV(Object _o) {
+// TODO Auto-generated constructor stub
+this.o = _o;
+}
+//为什么要改为Public???
+public Duck forBlackDuck(BlackDuck that){
+return new Bot();
+}
+//改用Object即可
+//public Duck forTop(Object t, Duck r){ //不能用int
+public Duck forRedDuck(Redduck that){ //不能用int
+if(o.equals(that.t)){
+return that.r.accept(this); //this指代Remv对象
+}else{
+return new RedDuck(that.t,that.r.accept(this));
+}
+}
 }
 ```
 
@@ -759,21 +760,21 @@ class EatV implements DuckVistor1{
 ```java
 class RedDuck extends Duck {
 
-    Object t;
-    Duck r;
-    public Top(Object t, Duck r) {
-        // TODO Auto-generated constructor stub
-        this.t = t;
-        this.r = r;
-    }
-    @Override
-    PieDUpdate accept(PieVistor1 ask) {
-        // TODO Auto-generated method stub
-        return ask.forRedDuck(this); ////////////////// Interesting , 代表RedDuck对象，因为只是为了访问t和r而已
-    }
-    public String toString() {
-        return "new " + getClass().getName() + "(" + this.t + ", " + this.r + ")";
-    }
+Object t;
+Duck r;
+public Top(Object t, Duck r) {
+// TODO Auto-generated constructor stub
+this.t = t;
+this.r = r;
+}
+@Override
+PieDUpdate accept(PieVistor1 ask) {
+// TODO Auto-generated method stub
+return ask.forRedDuck(this); ////////////////// Interesting , 代表RedDuck对象，因为只是为了访问t和r而已
+}
+public String toString() {
+return "new " + getClass().getName() + "(" + this.t + ", " + this.r + ")";
+}
 }
 
 
@@ -805,6 +806,87 @@ prepare.ForTourist(Thing..)
 prepare.ForExamination(Thing..)
 prepare.ForPractice(Thing..)
 
+### python装饰器模型
+
+python装饰器支持[多层嵌入装饰器][10]
+
+#### 最简单装饰器
+
+``` python
+def timer(fun):
+def deco():
+startime=time.time()
+fun()
+endtime=time.time()
+print("the func run time is %s" %(endtime-startime))
+pass
+return deco
+
+# deco(test1)
+# deco(test2)
+# test1()
+#
+# print("装饰器")
+# test3=timer(test1)
+
+@timer
+def test3():
+time.sleep(3)
+print("in the test3")
+
+test3()
+
+```
+#### 较复杂装饰器
+
+1. 加入单参数
+2. 加入多参数
+3. 返回return值
+4. 支持切面传值(传参)
+
+```python
+
+user='yzl'
+passwd='45'
+def auth(auth_type):
+print("Authentication type is ",auth_type)
+def outer_wrapper(func):
+def wrapper(*args,**kwargs):
+print("wrapper func args:",*args,**kwargs)
+if(auth_type=="local"):
+print("本地验证")
+username=input("username:").strip()
+password=input("password:").strip()
+if password==passwd and user==username:
+print("\033[32;1mUser has passed authentication\033[0m")
+res= func(*args,**kwargs)
+print("after authentication new added")
+return res
+else:
+exit("\033[32;1m Invalid username or password\033[0m")
+elif auth_type=="ldap":
+print("I don't understand ldap")
+return wrapper
+return outer_wrapper
+
+def index():
+print("welcome to index page")
+
+@auth(auth_type="local")
+def home():
+print("welcome to Home page")
+return "from Home"
+
+
+@auth(auth_type="ldap")
+def bbs():
+print("welcome to BBS page")
+
+index()
+print(home())
+bbs()
+```
+
 
 ---------------------------------------------------------------------------------
 
@@ -817,3 +899,5 @@ prepare.ForPractice(Thing..)
 [7]:http://jueqingsizhe66.github.io/blog/2015/05/17/cong-lambdadao-simple-plus-complexjie-shi-qi-zai-dao-shu-xing-chou-xiang/ 
 [8]: https://mp.weixin.qq.com/s/N4jJLG6EP55OJmyYv5lcFg 
 [9]:https://github.com/jueqingsizhe66/DesignPattern 
+[10]:https://www.cnblogs.com/cicaday/p/python-decorator.html 
+
