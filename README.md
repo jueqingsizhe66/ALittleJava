@@ -3,6 +3,7 @@
 Evaluate(interpret) all the hierarchy objects, apply coresponding operators to every objects.
 
 Introspect 和 retrospect具有类似的地方(review ,look back on, backcall)
+(watch your soul inside)
 经常用的In retrospect.
 ![eval-apply][2]
 
@@ -11,7 +12,6 @@ Introspect 和 retrospect具有类似的地方(review ,look back on, backcall)
 
 ![design][4]
 ## 对象和行为
-
 
 
 一个访问模式包含着一片对象和一类行为，行为中又可以根据相同和不同点划分
@@ -57,14 +57,14 @@ terminal element 相当于 0, 1,null?的作用(类似下文的所有初始原基
 ``` scheme
 
 (define equal1?
-(lambda (s1 s2)
-(cond
-((and (atom? s1) (atom? s2))
-(eqan? s1 s2))
-((or (atom? s1) (atom? s1))
+    (lambda (s1 s2)
+        (cond
+            ((and (atom? s1) (atom? s2))
+                (eqan? s1 s2))
+            ((or (atom? s1) (atom? s1))
 #f)
-(else
-(eqlist? s1 s2)))))
+            (else
+                (eqlist? s1 s2)))))
 
 ```
 
@@ -78,21 +78,20 @@ terminal element 相当于 0, 1,null?的作用(类似下文的所有初始原基
 ;;;
 ;;;
 (define insert-g
-(lambda (seq)
-(lambda (new old l)
-(cond
-((null? l) (quote ()))
-((eq? (car l) old)
-(seq new old (cdr l)))
-(else (cons (car l)
-((insert-g seq) new old
-(cdr l))))))))
+    (lambda (seq)
+        (lambda (new old l)
+            (cond
+                ((null? l) (quote ()))
+                    ((eq? (car l) old)
+                    (seq new old (cdr l)))
+                (else (cons (car l)
+                    ((insert-g seq) new old (cdr l))))))))
 ;;; So we can define insertL again with insert-g *****************************^-^************************************
 ;;; Do not pass in seqL this time.
 (define insertL1
-(insert-g
-(lambda (new old l)
-(cons new (cons old l)))))
+    (insert-g
+        (lambda (new old l)
+            (cons new (cons old l)))))
 
 ```
 ----------------------------------------------------------------------------------
@@ -121,9 +120,9 @@ Object是FishD,Int等所有类的父类，最原始类
 ``` java
 
 public abstract class PizzaD { //比萨饼
-abstract PizzaD remA(); //去除比萨饼上面的凤尾草（太咸了)
-abstract PizzaD topAwC(); //顶层加上奶酪（盖住凤尾草味道)
-abstract PizzaD subAwC(); //将所有凤尾草替换为奶酪（甜的）
+    abstract PizzaD remA(); //去除比萨饼上面的凤尾草（太咸了)
+    abstract PizzaD topAwC(); //顶层加上奶酪（盖住凤尾草味道)
+    abstract PizzaD subAwC(); //将所有凤尾草替换为奶酪（甜的）
 
 }
 
@@ -146,17 +145,17 @@ class Crust extends PizzaD{ //面包皮  区分下面的各个料
 @Override
 PizzaD remA() {
 // TODO Auto-generated method stub
-return new Crust();
+    return new Crust();
 }
 @Override
 PizzaD topAwC() {
 // TODO Auto-generated method stub
-return new Crust();
+    return new Crust();
 }
 @Override
 PizzaD subAwC() {
 // TODO Auto-generated method stub
-return new Crust();
+    return new Crust();
 }//面包皮
 }
 ```
@@ -169,22 +168,22 @@ class Cheese extends PizzaD{
 PizzaD p;
 public Cheese(PizzaD _p) {
 // TODO Auto-generated constructor stub
-this.p = _p;
+    this.p = _p;
 }
 @Override
 PizzaD remA() {
 // TODO Auto-generated method stub
-return new Cheese(p.remA());
+    return new Cheese(p.remA());
 }
 @Override
 PizzaD topAwC() {
 // TODO Auto-generated method stub
-return new Cheese(p.topAwC());
+    return new Cheese(p.topAwC());
 }
 @Override
 PizzaD subAwC() {
 // TODO Auto-generated method stub
-return new Cheese(p.subAwC());
+    return new Cheese(p.subAwC());
 } //奶酪pizzad
 }
 ```
@@ -472,15 +471,24 @@ P58开始提及data part 和action part
 行为的抽象是为了简化代码编写，实现多接口编程
 
 P87 首次引入了this，表明行为接口对象，至此使用this，简化行为接口对象。
+
 P89 在函数式编程 a visitor with fields is called as a closure(带属性的行为叫做closure)
 通过定义closure的技术手段，结合构造函数，提取行为基类中的仅首次创建对象发生改变的fields
+
 P92 首次引入interface的概念，直接引入，替换掉abstract，使用implements实现interface,由此首次
 规约rem和subst等为accept（最大的基函数, 包含所有的rem，substv，occurs，has等)
+
 P93 首次把ask当做VisitorI的形参名字，ask for service,所以使用改名字代表PieVistor的参数名字
 至此完成了几乎全部工作
+
 P112 首次采用Object类统一所有int,boolean,Tree等类型规约返回值（可能涉及装箱拆箱的过程),比如P114
+
 P118 开始封装数字和集合四则运算
-P150 拓展了接口UnionVisitor<-------------------可以多学习该思想， P157给出拓展图
+
+P150 拓展了接口UnionVisitor<-------------------可以多学习该思想， 
+
+P157给出拓展图
+
 P167 引入了that，在行为接口的对应函数引入Top that和Bot that，指代初始原基和非初始原基P168
 很有意思，仔细看看，ask.forTop(this) 这么神奇？缩减形参列表统一为初始原基或非初始原基，用结构字段
 来代替形参（事先已在...引入结构属性, 比如不断递归的循环体-一般是原基字段，即原基类的对象名)。
@@ -500,6 +508,7 @@ P167 引入了that，在行为接口的对应函数引入Top that和Bot that，�
 7. 引入interface P92 很有意思
 
 注意: 当一个类实现一个接口，需增加"Public" ,把他添加实现方法的最前面.
+
 P112 boolean,int,TreeD都属于Object，为了统一定义为Object返回类型即可(produce)
 接口间可以相互extends！！一次继承，多个实现是java的语言特性。
 
@@ -617,11 +626,11 @@ Ye也不是随便回答问题，针对不同的Instance有不同的解决方案�
 
 public abstract class Duck { //比萨饼
 
-//定义两个访问者
-//FlyV flyFn = new FlyV();
-//EatV eatFn = new EatV();
-abstract Duck flyA(FlyV flyFn);
-abstract Duck eatA(EatV eatFn);
+    //定义两个访问者
+    //FlyV flyFn = new FlyV();
+    //EatV eatFn = new EatV();
+    abstract Duck flyA(FlyV flyFn);
+    abstract Duck eatA(EatV eatFn);
 }
 
 ```
@@ -637,11 +646,11 @@ abstract Duck eatA(EatV eatFn);
 ``` java
 
 interface  DuckVisitorI{
-Object forDuck(); //初始原基
-Object forBlackDuck(Duck d); //非初始原基
-Object forWhiteDuck(Duck d); //非初始原基
-Object forBlueDuck(Duck d); //非初始原基
-Object forRedDuck(Duck d); //非初始原基
+    Object forDuck(); //初始原基
+    Object forBlackDuck(Duck d); //非初始原基
+    Object forWhiteDuck(Duck d); //非初始原基
+    Object forBlueDuck(Duck d); //非初始原基
+    Object forRedDuck(Duck d); //非初始原基
 .....
 
 }
@@ -655,21 +664,21 @@ class FlyV implements DuckVistorI{
 
 Object forDuck()
 {
-printf("feifei");
-}//初始原基
-Object forBlackDuck(Duck d,...){
-printf("lala");
-} //非初始原基
-Object forWhiteDuck(Duck d,...){
-printf("dudu");
-} //非初始原基
-Object forBlueDuck(Duck d,...){
-printf("tutu");
-} //非初始原基
-Object forRedDuck(Duck d,...){
-printf("dodo");
-} //非初始原基
-.....
+    printf("feifei");
+    }//初始原基
+    Object forBlackDuck(Duck d,...){
+        printf("lala");
+    } //非初始原基
+    Object forWhiteDuck(Duck d,...){
+        printf("dudu");
+    } //非初始原基
+    Object forBlueDuck(Duck d,...){
+        printf("tutu");
+    } //非初始原基
+    Object forRedDuck(Duck d,...){
+        printf("dodo");
+    } //非初始原基
+    .....
 }
 ```
 
@@ -680,7 +689,7 @@ printf("dodo");
 ``` java
 
 abstract class DuckD {
-abstract Object accept(DuckVisitorI ask);
+    abstract Object accept(DuckVisitorI ask);
 
 } // 鸭子原基(初始原基对象意味着循环的终止，非初始原基迭代继续，初始原基和非初始原基均基于原基)
 //初始原基构造函数一般为空(比如Bot)，非初始原基构造函数一般为初始原基(比如Top)
@@ -692,9 +701,9 @@ abstract Object accept(DuckVisitorI ask);
 ```java
 
 abstract class BlackDuck {
-Object accept(DuckVisitorI ask){
-ask.forBalckDuck(...); //我只要在forBlackDuck写上行为即可
-}
+    Object accept(DuckVisitorI ask){
+        ask.forBalckDuck(...); //我只要在forBlackDuck写上行为即可
+    }
 
 } 
 ```
@@ -712,46 +721,46 @@ ask.forBalckDuck(...); //我只要在forBlackDuck写上行为即可
 ```java
 
 class FlyV implements DuckVistor1{
-Object n;
-Object o;
-public FlyV(Object _n, Object _o) {
-// TODO Auto-generated constructor stub
-this.n = _n;
-this.o = _o;
-}
-public Object forBlackDuck(BlackDuck that)
-{
-return new Duck();
-}
-//public Object forRedDuck(Object t,PieD r){
-public Object forRedDuck(RedDuck that){
-if(o.equals(that.t)){
-return new RedDuck(n,(PieD)that.r.accept(this));
-}else{
-return new RedDuck(that.t,(PieD)r.accept(this));
-}
-}
+    Object n;
+    Object o;
+    public FlyV(Object _n, Object _o) {
+        // TODO Auto-generated constructor stub
+        this.n = _n;
+        this.o = _o;
+    }
+    public Object forBlackDuck(BlackDuck that)
+    {
+        return new Duck();
+    }
+    //public Object forRedDuck(Object t,PieD r){
+    public Object forRedDuck(RedDuck that){
+        if(o.equals(that.t)){
+            return new RedDuck(n,(PieD)that.r.accept(this));
+        }else{
+            return new RedDuck(that.t,(PieD)r.accept(this));
+        }
+    }
 }
 
 class EatV implements DuckVistor1{
-Object o;
-public EatV(Object _o) {
-// TODO Auto-generated constructor stub
-this.o = _o;
-}
-//为什么要改为Public???
-public Duck forBlackDuck(BlackDuck that){
-return new Bot();
-}
-//改用Object即可
-//public Duck forTop(Object t, Duck r){ //不能用int
-public Duck forRedDuck(Redduck that){ //不能用int
-if(o.equals(that.t)){
-return that.r.accept(this); //this指代Remv对象
-}else{
-return new RedDuck(that.t,that.r.accept(this));
-}
-}
+    Object o;
+    public EatV(Object _o) {
+    // TODO Auto-generated constructor stub
+        this.o = _o;
+    }
+    //为什么要改为Public???
+    public Duck forBlackDuck(BlackDuck that){
+        return new Bot();
+    }
+    //改用Object即可
+    //public Duck forTop(Object t, Duck r){ //不能用int
+    public Duck forRedDuck(Redduck that){ //不能用int
+        if(o.equals(that.t)){
+            return that.r.accept(this); //this指代Remv对象
+        }else{
+            return new RedDuck(that.t,that.r.accept(this));
+        }
+    }
 }
 ```
 
@@ -815,11 +824,11 @@ python装饰器支持[多层嵌入装饰器][10]
 ``` python
 def timer(fun):
 def deco():
-startime=time.time()
-fun()
-endtime=time.time()
-print("the func run time is %s" %(endtime-startime))
-pass
+    startime=time.time()
+    fun()
+    endtime=time.time()
+    print("the func run time is %s" %(endtime-startime))
+    pass
 return deco
 
 # deco(test1)
@@ -831,10 +840,10 @@ return deco
 
 @timer
 def test3():
-time.sleep(3)
-print("in the test3")
+    time.sleep(3)
+    print("in the test3")
 
-test3()
+    test3()
 
 ```
 #### 较复杂装饰器
@@ -849,43 +858,55 @@ test3()
 user='yzl'
 passwd='45'
 def auth(auth_type):
-print("Authentication type is ",auth_type)
+    print("Authentication type is ",auth_type)
 def outer_wrapper(func):
-def wrapper(*args,**kwargs):
-print("wrapper func args:",*args,**kwargs)
-if(auth_type=="local"):
-print("本地验证")
-username=input("username:").strip()
-password=input("password:").strip()
-if password==passwd and user==username:
-print("\033[32;1mUser has passed authentication\033[0m")
-res= func(*args,**kwargs)
-print("after authentication new added")
-return res
-else:
-exit("\033[32;1m Invalid username or password\033[0m")
-elif auth_type=="ldap":
-print("I don't understand ldap")
-return wrapper
-return outer_wrapper
+    def wrapper(*args,**kwargs):
+        print("wrapper func args:",*args,**kwargs)
+        if(auth_type=="local"):
+            print("本地验证")
+            username=input("username:").strip()
+            password=input("password:").strip()
+            if password==passwd and user==username:
+                print("\033[32;1mUser has passed authentication\033[0m")
+                res= func(*args,**kwargs)
+                print("after authentication new added")
+                return res
+            else:
+                exit("\033[32;1m Invalid username or password\033[0m")
+            elif auth_type=="ldap":
+            print("I don't understand ldap")
+            return wrapper
+    return outer_wrapper
 
 def index():
 print("welcome to index page")
 
 @auth(auth_type="local")
 def home():
-print("welcome to Home page")
-return "from Home"
+    print("welcome to Home page")
+    return "from Home"
 
 
 @auth(auth_type="ldap")
 def bbs():
-print("welcome to BBS page")
+    print("welcome to BBS page")
 
-index()
-print(home())
-bbs()
+    index()
+    print(home())
+    bbs()
 ```
+
+## Macro lisp 
+
+[The power of lisp][11]
+
+``` lisp
+(defmacro name (parameter*)
+  "Optional documentation string."
+  body-form*)
+```
+Like a function, a macro consists of a name, a parameter list, an optional documentation string, and a body of Lisp expressions.1 However, as I just discussed, the job of a macro isn't to do anything directly--its job is to generate code that will later do what you want.
+
 
 
 ---------------------------------------------------------------------------------
@@ -900,4 +921,5 @@ bbs()
 [8]: https://mp.weixin.qq.com/s/N4jJLG6EP55OJmyYv5lcFg 
 [9]:https://github.com/jueqingsizhe66/DesignPattern 
 [10]:https://www.cnblogs.com/cicaday/p/python-decorator.html 
+[11]:http://www.gigamonkeys.com/book/macros-defining-your-own.html 
 
