@@ -956,8 +956,11 @@ One hole one name, One person one name(maybe many names in different occasions)
 ## The thinking of characteristics vector
 
 1.定基(Define interfae in software interfaces; define base of ground in building engineering)
+
 2.变基(expand the macros to let it different)
+
 3.组基(compose the similar and useful objects into one products) 
+
 4.升基(update your vectos to update your products) 
 
 ---------------------------------------------------------------------------------
