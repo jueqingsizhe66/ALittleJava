@@ -16,7 +16,7 @@ public class Stranger implements Callback {
                  * A类调用B的方法C
                  * 实现和继承都是一种子类的实现方法
                  */
-                ye.executeMessage(Stranger.this,question);
+                ye.accept(Stranger.this,question);
             }
         }).start();
 
@@ -31,7 +31,7 @@ public class Stranger implements Callback {
     }
 
     @Override
-    public void accept(String result) {
+    public void receive(String result) {
         System.out.println("小叶告诉陌生人的答案是:"+result);
     }
 }

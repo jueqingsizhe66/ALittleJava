@@ -27,7 +27,7 @@ public class Wang implements Callback{
                  * A类调用B的方法C
                  * 实现和继承都是一种子类的实现方法
                  */
-                ye.executeMessage(Wang.this,question);
+                ye.accept(Wang.this,question);
             }
         }).start();
 
@@ -42,7 +42,7 @@ public class Wang implements Callback{
     }
 
     @Override
-    public void accept(String result) {
+    public void receive(String result) {
         System.out.println("小叶告诉小王的答案时-->"+result);
     }
 }

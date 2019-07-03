@@ -133,7 +133,7 @@ package ch071;
 		public Object forSplit(TreeD l, TreeD t) {
 			// TODO Auto-generated method stub
 			return new Boolean((boolean)l.accept(this) ||(boolean) t.accept(this));
-			//return new Boolean( (boolean) t.accept(this));
+			//return new Boolean( (boolean) t.receive(this));
 		}  
   }
   

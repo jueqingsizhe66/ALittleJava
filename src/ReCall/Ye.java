@@ -7,7 +7,7 @@ public class Ye {
      * @param callback
      * @param question
      */
-    public void executeMessage(Callback callback, String question){
+    public void accept(Callback callback, String question){
         System.out.println("老王的问题--->" + question);
 
         /**
@@ -40,6 +40,6 @@ public class Ye {
          * 于是就打电话告诉老王，调用老王的方法
          * 相当于B类反过来调用A类的方法
          */
-        callback.accept(result);
+        callback.receive(result);
     }
 }

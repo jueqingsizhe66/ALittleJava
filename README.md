@@ -107,16 +107,23 @@ Object是FishD,Int等所有类的父类，最原始类
 #### 第一步：
 
 
-首先是把不相关的属性放入自定义类中，然后是把基类和需要的属性的输入放入自定义类中，
+首先是把不相关的属性放入自定义类中，
+
+然后是把基类和需要的属性的输入放入自定义类中，
+
 后来是多个行为基类(也叫作行为基函数，省略掉必要的属性, 比如PizzaD的remA,topAwc,subAbc)放入
 其中(出现的问题1: 每个自定义子类都有一堆的基类函数需要实现, 这也是我们最先想到方法，比如鸭子
 会飞、会叫、会游泳会吃，于是黑鸭子也都会，黄鸭子也会，蓝鸭子也会，臭鸭子也会^-^ 很多很多)
+
 此时，我们用笨方法实现了不同鸭子类, 并且这时候已经有了构造函数的概念(new Olive(new ..))的样子。
-并且每一个子类都会出现父类(原基字段，一般和构造函数对应上)这是所有子类都有，后续章节也出现。
-原基不断进行迭代，构成了生态链---原基生态链，比如PizzaD、ShishD、LayerD、PointD等都是原基
+并且每一个子类都会出现父类(原基字段，一般和构造函数对应上)这是所有子类都有，
+
+后续章节也出现。原基不断进行迭代，构成了生态链---原基生态链，比如PizzaD、ShishD、LayerD、PointD等都是原基
+
 原基之上有不能吃的子基和能吃的子基
 
 原基示例: 共同特点通过public abstract class定义
+
 ``` java
 
 public abstract class PizzaD { //比萨饼
@@ -190,31 +197,36 @@ PizzaD subAwC() {
 
 到此，说明了原基、初始原基(terminate condition)和非初始原基(natural recursion)等概念，
 下面借用该概念继续理解该书。
+
 #### 第二步：(开始出现访问者字眼)
 
 提出一个自定义的V类，实现所有针对于各个对象的for函数，然后把V类添加到基类中，并且生成值，
 自定义类通过V类值来实现抽象行为。(并没有解决问题，只是把所有类的行为，抽象到一个行为V类，
 在该V类，对应各个自定义类的具体实现，相当于横排竖排转置而已，没产生一个新自定义类，你的每一个
-行为V类得重写，新的自定义类依然得对对应套餐行为进行实现。 这种想法也是我们能够想到的，
-我们知道常见的鸭子有黑鸭子、黄鸭子、蓝鸭子、臭鸭子， 我们把他们飞的行为抽象成一个类，飞类，
+行为V类得重写，新的自定义类依然得对对应套餐行为进行实现。 
+
+这种想法也是我们能够想到的，我们知道常见的鸭子有黑鸭子、黄鸭子、蓝鸭子、臭鸭子， 我们把他们飞的行为抽象成一个类，飞类，
 他们叫的行为抽象成一个类，叫类，.... 这时候相当于把行为当做横排，而不像上面的把不同鸭子当
-做一个一个记录或者叫排，然后我们针对每一类鸭子，完成飞类、叫类等的实现，这时候针对每一个
-类型的鸭子，只需要引入该V类调用对应的方法即可，也就是具体的实现都移到了V类去干抽象出行为
-特点！！这是他开始要展现与众不同的地方，因为你只要去V类干活就可以，
+做一个一个记录或者叫排，然后我们针对每一类鸭子，完成飞类、叫类等的实现，
+
+这时候针对每一个类型的鸭子，只需要引入该V类调用对应的方法即可，也就是具体的实现都移到了V类去干抽象出行为特点！！这是他开始要展现与众不同的地方，因为你只要去V类干活就可以，
 在鸭子的自定义类中只是去调用V类的对应行为，当然你也可以说上面的方法也可以，我只要到对应鸭
-子类的对应行为修改就可以了，好正如上面说的，这种转置变换到此时并没有太多的进步)
+子类的对应行为修改就可以了
+
+好正如上面说的，这种转置变换到此时并没有太多的进步
 
 中间变异原基示例:(原基引入访问者)，而在原基定义的函数也叫作基函数(基本功能、基本功能，在其他访问者接口
 实现具体功能)
+
 ```java
 
 public abstract class PieD { //比萨饼
 
-//定义两个访问者
-//RemV remFn = new RemV();
-//SubstV subFn = new SubstV();
-abstract PieD remA(RemV remFn);
-abstract PieD substFish(SubstV subFn);
+    //定义两个访问者
+    //RemV remFn = new RemV();
+    //SubstV subFn = new SubstV();
+    abstract PieD remA(RemV remFn);
+    abstract PieD substFish(SubstV subFn);
 }
 ```
 
@@ -225,7 +237,7 @@ abstract PieD substFish(SubstV subFn);
 ```java
 
 abstract class TreeD {
-abstract Object accept(TreeVisitorI ask);
+    abstract Object accept(TreeVisitorI ask);
 
 } // 树
 
@@ -237,29 +249,29 @@ abstract Object accept(TreeVisitorI ask);
 
 //增加两个访问者
 class OnlyOnionsV{
-boolean forSkewer(){  //串
-return true;
-}
-boolean forOnion(YangRouChuan y){
-return y.onlyOnions();
-}
-boolean forLamb(YangRouChuan y){
-return false;
-}
-boolean forTomato(YangRouChuan y){
-return false;
-}
+    boolean forSkewer(){  //串
+        return true;
+    }
+    boolean forOnion(YangRouChuan y){
+        return y.onlyOnions();
+    }
+    boolean forLamb(YangRouChuan y){
+        return false;
+    }
+    boolean forTomato(YangRouChuan y){
+        return false;
+    }
 }
 
 
 public abstract class YangRouChuan {
 
-//增加两个对象----注意可以把两个字段放入形参中，这是你知道的---然后进一步浓缩boolean为Object
-/// 并且浓缩OnlyOnionsV 和IsVegetarianV为InterfaceV统一行为接口
-OnlyOnionsV ooFn = new OnlyOnionsV();
-IsVegetarianV ivFn = new IsVegetarianV();
-abstract boolean onlyOnions();//烤串上是不是只有洋葱
-abstract boolean isVegetarian();//烤串上是不是全是蔬菜
+    //增加两个对象----注意可以把两个字段放入形参中，这是你知道的---然后进一步浓缩boolean为Object
+    /// 并且浓缩OnlyOnionsV 和IsVegetarianV为InterfaceV统一行为接口
+    OnlyOnionsV ooFn = new OnlyOnionsV();
+    IsVegetarianV ivFn = new IsVegetarianV();
+    abstract boolean onlyOnions();//烤串上是不是只有洋葱
+    abstract boolean isVegetarian();//烤串上是不是全是蔬菜
 }
 ```
 
@@ -270,29 +282,34 @@ abstract boolean isVegetarian();//烤串上是不是全是蔬菜
 ```java
 
 interface  TreeVisitorI{
-Object forBud();
-Object forFlat(FruitD f, TreeD t);
-Object forSplit(TreeD l,TreeD t);
+    Object forBud();
+    Object forFlat(FruitD f, TreeD t);
+    Object forSplit(TreeD l,TreeD t);
 }
 
 ```
 #### 第三步：（引入行为V类参数到构造函数)          
 
 把基类中的行为V类放到基函数(构造函数)的参数中，而不是放在基函数的字段field中，减少了基类函数长度。
-关键的this出现了，在行为类中引入this,this的出现使得代码本身具有闭包的感觉。this指代当前访问者本身
-（也就是说这一步的重要改进就是通过基函数和this改变了代码的显示风格代码量没有太多实质性的减少，
-只不过从字段移到了参数，感觉行数少了，但是单词数也多了 这是第二次进化在此基础上，开始进行第三
-次进化，把固定不变的量提到访问者V类，比如rem，删除某个东西是固定的，于是改进行为V类的构造函数，
-这样可以减少核心函数的参数个数。比如subst，从什么变到什么，也是不变的，于是也提到行为V类中(在这
-次进化中，由于你把rem和subst的变化都提到行为V类中，于是对应的自定义类中的基函数实现很像出现重复
-性代码，考虑进行第四次进化)
+
+关键的this出现了，在行为类中引入this. this的出现使得代码本身具有闭包的感觉(yes?)。
+
+this指代当前访问者本身（也就是说这一步的重要改进就是通过基函数和this改变了代码的显示风格代码量没有太多实质性的减少，只不过从字段移到了参数，感觉行数少了，但是单词数也多了 
+
+这是第二次进化在此基础上，开始进行第三次进化，把固定不变的量提到访问者V类(the occurrence of closure concept)，比如rem，删除某个东西是固定的，于是改进行为V类的构造函数，这样可以减少核心函数的参数个数,比如subst，从什么变到什么，也是不变的，于是也提到行为V类中
+
+在这次进化中，由于你把rem和subst的变化都提到行为V类中，于是对应的自定义类中的基函数实现很像出现重复
+性代码，考虑进行第四次进化
 
 #### 第四步: 行为V类变为行为接口(interface  TreeVisitor)        
 
 把行为V自定义类的方法抽象出一个接口函数，然后行为V类都实现改接口(implements在第四次进化中出现了)
+
 这时候你会去分析行为的异同，对行为接口基函数的实现，和基类基函数(基向量、特征向量)的实现分开， 
 你需要对基类进行修正， 行为V类已经通过行为基类结合在一起，那么对应的基类的基函数，
-也得用行为基类进行了 行为基函数得浓缩为一个函数，accept(第四次进化很丰富，统一为accept)
+也得用行为基类进行expand.
+
+行为基函数得浓缩为一个函数，accept(第四次进化很丰富，统一为accept)
 (interface的出现也带来了accept函数的归并...参考P92)
 基类基函数只存在一个accept函数了这时候你会看到很爽 ，很刺激的感觉。 因为代码量急剧下降了！
 此时构建新的行为V类也会简单一些。
@@ -301,6 +318,7 @@ Object forSplit(TreeD l,TreeD t);
 abstract,new,extends, super, this, interface,implements都在其中有所体现。
 
 ##### closure的出现
+
 另外由于行为追加了行为属性，把一些不变的属性纳入行为的字段，通过构造函数幅值，不需要handle forward and back
 传来传去，直接用that.t 和that.r来代替,这也叫做闭包(行为追加属性)。
 可以参考第五步的SubstV
@@ -312,24 +330,24 @@ abstract,new,extends, super, this, interface,implements都在其中有所体现�
 
 ```java
 class SubstV implements PieVistor1{
-Object n;
-Object o;
-public SubstV(Object _n, Object _o) {
-// TODO Auto-generated constructor stub
-this.n = _n;
-this.o = _o;
-}
-public Object forBot()
-{
-return new Bot();
-}
-public Object forTop(Object t,PieD r){
-if(o.equals(t)){
-return new Top(n,(PieD)r.accept(this));
-}else{
-return new Top(t,(PieD)r.accept(this));
-}
-}
+    Object n;
+    Object o;
+    public SubstV(Object _n, Object _o) {
+        // TODO Auto-generated constructor stub
+        this.n = _n;
+        this.o = _o;
+    }
+    public Object forBot()
+    {
+        return new Bot();
+    }
+    public Object forTop(Object t,PieD r){
+        if(o.equals(t)){
+            return new Top(n,(PieD)r.accept(this));
+        }else{
+            return new Top(t,(PieD)r.accept(this));
+        }
+    }
 }
 
 ```
@@ -339,48 +357,47 @@ return new Top(t,(PieD)r.accept(this));
 
 class Top extends PieDUpdate {
 
-Object t;
-PieDUpdate r;
-public Top(Object t, PieDUpdate r) {
-// TODO Auto-generated constructor stub
-this.t = t;
-this.r = r;
-}
-@Override
-PieDUpdate accept(PieVistor1 ask) {
-// TODO Auto-generated method stub
-return ask.forTop(this);
-}
-public String toString() {
-return "new " + getClass().getName() + "(" + this.t + ", " + this.r + ")";
-}
+    Object t;
+    PieDUpdate r;
+    public Top(Object t, PieDUpdate r) {
+    // TODO Auto-generated constructor stub
+    this.t = t; this.r = r;
+    }
+    @Override
+    PieDUpdate accept(PieVistor1 ask) {
+    // TODO Auto-generated method stub
+    return ask.forTop(this);
+    }
+    public String toString() {
+    return "new " + getClass().getName() + "(" + this.t + ", " + this.r + ")";
+    }
 }
 
 //因为RemV SubstV Bot Top四个类极度相似，于是继续抽象。
 interface PieVistor1{
-PieDUpdate forBot(Bot that);
-PieDUpdate forTop(Top that);
+    PieDUpdate forBot(Bot that);
+    PieDUpdate forTop(Top that);
 }
 
 class RemV implements PieVistor1{
-Object o;
-public RemV(Object _o) {
-// TODO Auto-generated constructor stub
-this.o = _o;
+    Object o;
+    public RemV(Object _o) {
+    // TODO Auto-generated constructor stub
+    this.o = _o;
 }
 //为什么要改为Public???
 public PieDUpdate forBot(Bot that){
-return new Bot();
+    return new Bot();
 }
 //改用Object即可
 //public PieDUpdate forTop(Object t, PieDUpdate r){ //不能用int
 public PieDUpdate forTop(Top that){ //不能用int
-if(o.equals(that.t)){
-return that.r.accept(this); //this指代Remv对象
-}else{
-return new Top(that.t,that.r.accept(this));
-}
-}
+    if(o.equals(that.t)){
+        return that.r.accept(this); //this指代Remv对象
+    }else{
+        return new Top(that.t,that.r.accept(this));
+    }
+    }
 }
 ```
 结果
@@ -411,24 +428,24 @@ new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801T
 
 ```java
 class SubstV implements PieVisitorI {
-Object n;
-Object o;
-SubstV(Object _n, Object _o) {
-n = _n;
-o = _o;
+    Object n;
+    Object o;
+    SubstV(Object _n, Object _o) {
+        n = _n;
+        o = _o;
 }
 public Object forBot(Bot that) {
-return that; // interesting
+    return that; // interesting
 }
 public Object forTop(Top that) {
-if (o.equals(that.t))
-that.t = n;
-that.r.accept(this);
-return that; // interesting
-else
-that.r.accept(this);
-return that; // interesting
-}
+    if (o.equals(that.t))
+        that.t = n;
+        that.r.accept(this);
+        return that; // interesting
+    else
+        that.r.accept(this);
+    return that; // interesting
+    }
 }
 ```
 
@@ -456,16 +473,17 @@ evaluator会不断解析many hierarchy objects,并对解析的object都运用函
 
 public class Top
 {  
-public Top(){};   
+    public Top(){};   
 
-public void accept(TopImplements ask){
-ask.forTop();
-}
+    public void accept(TopImplements ask){
+        ask.forTop();
+    }
 }
 ```
 
 P61 归纳了data part to understand what things is. action part to understand
 how things work
+
 P58开始提及data part 和action part
 数据的抽象是为了进行分层架构，逻辑划分
 行为的抽象是为了简化代码编写，实现多接口编程
@@ -518,62 +536,88 @@ P112 boolean,int,TreeD都属于Object，为了统一定义为Object返回类型�
 
 ``` Perl
 KebabD: [
-{behaviors:[isVeggie(),whatHolder()]},
-{objects:[Holder,Shallot,Shrimp,Radish,Pepper]}
+    {behaviors:
+        [isVeggie(),whatHolder()]},
+    {objects:
+        [Holder,Shallot,Shrimp,Radish,Pepper]}
 ];
 RodD: [
-{behaviors:[]},
-{objects:[Dagger,Sabre,Sword]}
+    {behaviors:
+        []},
+    {objects:
+        [Dagger,Sabre,Sword]}
 ];
 
 PlateD: [
-{behaviors:[]},
-{objects:[Gold,Silver,Braw,Copper,Wood]}
+    {behaviors:
+        []},
+    {objects:
+        [Gold,Silver,Braw,Copper,Wood]}
 ];
 PointD: [
-{behaviors:[distanceTo0(),closeTo0()]},
-{objects:[CartesianPt(),ManhattenPt()]}
+    {behaviors:
+        [distanceTo0(),closeTo0()]},
+    {objects:
+        [CartesianPt(),ManhattenPt()]}
 ];
 PizzaD: [
-{behaviors:[remA(),topAwc(),subAbc()]},
-{objects:[Crust,Cheese,Olive,Anchocy,Sansage,Spanish]}
+    {behaviors:
+        [remA(),topAwc(),subAbc()]},
+    {objects:
+        [Crust,Cheese,Olive,Anchocy,Sansage,Spanish]}
 ];
 ShishD: [
-{behaviors:[onlyOnions(),isVegeterian()]},
-{objects:[ShishD,Skew,Onion,Lamb,Tomato]}
+    {behaviors:
+        [onlyOnions(),isVegeterian()]},
+    {objects:
+        [ShishD,Skew,Onion,Lamb,Tomato]}
 ];
 SeasoningD: [
-{behaviors:[]},
-{objects:[Sage,Peper,Salt,Thyme]}
+    {behaviors:
+        []},
+    {objects:
+        [Sage,Peper,Salt,Thyme]}
 ];
 
 NumD: [
-{behaviors:[]},
-{objects:[Zero, OneMoreThan]}
+    {behaviors:
+        []},
+    {objects:
+        [Zero, OneMoreThan]}
 ];
 PieD: [
-{behaviors:[remA,remFish,remInt]},
-{objects:[Bot,Top]}
+    {behaviors:
+        behaviors[remA,remFish,remInt]},
+    {objects:
+        [Bot,Top]}
 ];
 
 FishD: [
-{behaviors:[]},
-{objects:[Anchovy,Salmon,Tuna]}
+    {behaviors:
+        []},
+    {objects:
+        [Anchovy,Salmon,Tuna]}
 ];
 
 FruitD: [
-{behaviors:[]},
-{objects:[Peach,Apple,Pear,Lemon,Fig]}
+    {behaviors:
+        []},
+    {objects:
+        [Peach,Apple,Pear,Lemon,Fig]}
 ];
 
 TreeD: [
-{behaviors:[accept(TreeVistorI)]},
-{objects:[Bud,Flat,split}
+    {behaviors:
+        [accept(TreeVistorI)]},
+    {objects:
+        [Bud,Flat,split}
 ];
 
 SeasoningD: [
-{behaviors:[]},
-{objects:[]}
+    {behaviors:
+        []},
+    {objects:
+        []}
 ];
 ```
 
@@ -907,6 +951,7 @@ def bbs():
 ```
 Like a function, a macro consists of a name, a parameter list, an optional documentation string, and a body of Lisp expressions.1 However, as I just discussed, the job of a macro isn't to do anything directly--its job is to generate code that will later do what you want.
 
+One hole one name, One person one name(maybe many names in different occasions)
 
 
 ---------------------------------------------------------------------------------

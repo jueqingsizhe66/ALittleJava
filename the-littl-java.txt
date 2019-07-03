@@ -4620,19 +4620,19 @@ ReCall.Callback   (Public Interface)
                          Data Dictionary Summary Report
 ===============================================================================
 
-ReCall.Callback.accept(String result)   (Public Abstract Method)
+receive(String result)   (Public Abstract Method)
    [Callback.java, 8]
 
-ReCall.Callback.accept.result   (Parameter)
+receive.result   (Parameter)
    [Callback.java, 8]
 
 ReCall.Stranger   (Public Class)
    [Stranger.java, 3]
 
-ReCall.Stranger.accept(String result)   (Public Method)
+receive(String result)   (Public Method)
    [Stranger.java, 34]
 
-ReCall.Stranger.accept.result   (Parameter)
+receive.result   (Parameter)
    [Stranger.java, 34]
 
 ReCall.Stranger.askQuestion(String question)   (Public Method)
@@ -4683,10 +4683,10 @@ ReCall.Test.main.zhaoliang   (Variable)
 ReCall.Wang   (Public Class)
    [Wang.java, 3]
 
-ReCall.Wang.accept(String result)   (Public Method)
+receive(String result)   (Public Method)
    [Wang.java, 45]
 
-ReCall.Wang.accept.result   (Parameter)
+receive.result   (Parameter)
    [Wang.java, 45]
 
 ReCall.Wang.askQuestion(String question)   (Public Method)
@@ -4716,25 +4716,25 @@ ReCall.Wang.ye   (Private Variable)
 ReCall.Ye   (Public Class)
    [Ye.java, 3]
 
-ReCall.Ye.executeMessage(Callback callback,String question)   (Public Method)
+accept(Callback callback,String question)   (Public Method)
    [Ye.java, 10]
 
-ReCall.Ye.executeMessage.(for_loop_1).i   (Variable)
+accept.(for_loop_1).i   (Variable)
    [Ye.java, 16]
 
-ReCall.Ye.executeMessage.(for_loop_2).i   (Variable)
+accept.(for_loop_2).i   (Variable)
    [Ye.java, 31]
 
-ReCall.Ye.executeMessage.callback   (Parameter)
+accept.callback   (Parameter)
    [Ye.java, 10]
 
-ReCall.Ye.executeMessage.question   (Parameter)
+accept.question   (Parameter)
    [Ye.java, 10]
                                                                      Page 84
                          Data Dictionary Summary Report
 ===============================================================================
 
-ReCall.Ye.executeMessage.result   (Variable)
+accept.result   (Variable)
    [Ye.java, 23]
 
 YeRestaurant   (Package)
@@ -8402,17 +8402,17 @@ ReCall   (Package)
     Define [Wang.java, 1]            Wang.java
     Declare [Wang.java, 1]           Wang.java
 
-ReCall.Callback.accept(String result)   (Public Abstract Method)
+receive(String result)   (Public Abstract Method)
   Declared as: void
     Define [Callback.java, 8]        ReCall.Callback
-    Call [Ye.java, 43]               ReCall.Ye.executeMessage(Callback callback,String question)
-    Override [Stranger.java, 34]     ReCall.Stranger.accept(String result)
-    Override [Wang.java, 45]         ReCall.Wang.accept(String result)
+    Call [Ye.java, 43]               accept(Callback callback,String question)
+    Override [Stranger.java, 34]     receive(String result)
+    Override [Wang.java, 45]         receive(String result)
 
-ReCall.Stranger.accept(String result)   (Public Method)
+receive(String result)   (Public Method)
   Declared as: void
     Define [Stranger.java, 34]       ReCall.Stranger
-    Override [Stranger.java, 34]     ReCall.Callback.accept(String result)
+    Override [Stranger.java, 34]     receive(String result)
 
 ReCall.Stranger.askQuestion(String question)   (Public Method)
   Declared as: void
@@ -8437,13 +8437,13 @@ ReCall.Test.main(String[] args)   (Public Static Method)
   Declared as: void
     Define [Test.java, 4]            ReCall.Test
 
-ReCall.Wang.accept(String result)   (Public Method)
+receive(String result)   (Public Method)
   Declared as: void
     Define [Wang.java, 45]           ReCall.Wang
                                                                      Page 141
                       Program Unit Cross Reference Report
 ===============================================================================
-    Override [Wang.java, 45]         ReCall.Callback.accept(String result)
+    Override [Wang.java, 45]         receive(String result)
 
 ReCall.Wang.askQuestion(String question)   (Public Method)
   Declared as: void
@@ -8464,7 +8464,7 @@ ReCall.Wang.Wang(Ye ye)   (Public Constructor)
     Define [Wang.java, 13]           ReCall.Wang
     Call [Test.java, 8]              ReCall.Test.main(String[] args)
 
-ReCall.Ye.executeMessage(Callback callback,String question)   (Public Method)
+accept(Callback callback,String question)   (Public Method)
   Declared as: void
     Define [Ye.java, 10]             ReCall.Ye
     Call [Stranger.java, 19]         ReCall.Stranger.askQuestion.(Anon_1).run
@@ -12632,14 +12632,14 @@ ch10.TunaFish.equals.o   (Parameter)
     Define [PieD.java, 157]          ch10.TunaFish.equals(Object o)
     Use [PieD.java, 159]             ch10.TunaFish.equals(Object o)
 
-ReCall.Callback.accept.result   (Parameter)
+receive.result   (Parameter)
   Declared as: String
-    Define [Callback.java, 8]        ReCall.Callback.accept(String result)
+    Define [Callback.java, 8]        receive(String result)
 
-ReCall.Stranger.accept.result   (Parameter)
+receive.result   (Parameter)
   Declared as: String
-    Define [Stranger.java, 34]       ReCall.Stranger.accept(String result)
-    Use [Stranger.java, 35]          ReCall.Stranger.accept(String result)
+    Define [Stranger.java, 34]       receive(String result)
+    Use [Stranger.java, 35]          receive(String result)
 
 ReCall.Stranger.askQuestion.question   (Parameter)
   Declared as: String
@@ -12683,10 +12683,10 @@ ReCall.Test.main.zhaoliang   (Variable)
     Use [Test.java, 8]               ReCall.Test.main(String[] args)
     Use [Test.java, 9]               ReCall.Test.main(String[] args)
 
-ReCall.Wang.accept.result   (Parameter)
+receive.result   (Parameter)
   Declared as: String
-    Define [Wang.java, 45]           ReCall.Wang.accept(String result)
-    Use [Wang.java, 46]              ReCall.Wang.accept(String result)
+    Define [Wang.java, 45]           receive(String result)
+    Use [Wang.java, 46]              receive(String result)
 
 ReCall.Wang.askQuestion.question   (Parameter)
   Declared as: String
@@ -12704,43 +12704,43 @@ ReCall.Wang.ye   (Private Variable)
     Set [Wang.java, 14]              ReCall.Wang.Wang(Ye ye)
     Use [Wang.java, 30]              ReCall.Wang.askQuestion.(Anon_1).run
 
-ReCall.Ye.executeMessage.(for_loop_1).i   (Variable)
+accept.(for_loop_1).i   (Variable)
   Declared as: int=0
-    Set [Ye.java, 16]                ReCall.Ye.executeMessage(Callback callback,String question)
-    Use [Ye.java, 16]                ReCall.Ye.executeMessage(Callback callback,String question)
-    Modify [Ye.java, 16]             ReCall.Ye.executeMessage(Callback callback,String question)
-    Define [Ye.java, 16]             ReCall.Ye.executeMessage(Callback callback,String question)
+    Set [Ye.java, 16]                accept(Callback callback,String question)
+    Use [Ye.java, 16]                accept(Callback callback,String question)
+    Modify [Ye.java, 16]             accept(Callback callback,String question)
+    Define [Ye.java, 16]             accept(Callback callback,String question)
 
-ReCall.Ye.executeMessage.(for_loop_2).i   (Variable)
+accept.(for_loop_2).i   (Variable)
   Declared as: int=0
-    Set [Ye.java, 31]                ReCall.Ye.executeMessage(Callback callback,String question)
-    Use [Ye.java, 31]                ReCall.Ye.executeMessage(Callback callback,String question)
-    Modify [Ye.java, 31]             ReCall.Ye.executeMessage(Callback callback,String question)
-    Define [Ye.java, 31]             ReCall.Ye.executeMessage(Callback callback,String question)
+    Set [Ye.java, 31]                accept(Callback callback,String question)
+    Use [Ye.java, 31]                accept(Callback callback,String question)
+    Modify [Ye.java, 31]             accept(Callback callback,String question)
+    Define [Ye.java, 31]             accept(Callback callback,String question)
                                                                      Page 215
                          Object Cross Reference Report
 ===============================================================================
 
-ReCall.Ye.executeMessage.callback   (Parameter)
+accept.callback   (Parameter)
   Declared as: Callback
-    Define [Ye.java, 10]             ReCall.Ye.executeMessage(Callback callback,String question)
-    Use [Ye.java, 24]                ReCall.Ye.executeMessage(Callback callback,String question)
-    Use [Ye.java, 26]                ReCall.Ye.executeMessage(Callback callback,String question)
-    Use [Ye.java, 43]                ReCall.Ye.executeMessage(Callback callback,String question)
+    Define [Ye.java, 10]             accept(Callback callback,String question)
+    Use [Ye.java, 24]                accept(Callback callback,String question)
+    Use [Ye.java, 26]                accept(Callback callback,String question)
+    Use [Ye.java, 43]                accept(Callback callback,String question)
 
-ReCall.Ye.executeMessage.question   (Parameter)
+accept.question   (Parameter)
   Declared as: String
-    Define [Ye.java, 10]             ReCall.Ye.executeMessage(Callback callback,String question)
-    Use [Ye.java, 11]                ReCall.Ye.executeMessage(Callback callback,String question)
+    Define [Ye.java, 10]             accept(Callback callback,String question)
+    Use [Ye.java, 11]                accept(Callback callback,String question)
 
-ReCall.Ye.executeMessage.result   (Variable)
+accept.result   (Variable)
   Declared as: String=""
-    Define [Ye.java, 23]             ReCall.Ye.executeMessage(Callback callback,String question)
-    Set [Ye.java, 23]                ReCall.Ye.executeMessage(Callback callback,String question)
-    Set [Ye.java, 25]                ReCall.Ye.executeMessage(Callback callback,String question)
-    Set [Ye.java, 34]                ReCall.Ye.executeMessage(Callback callback,String question)
-    Set [Ye.java, 36]                ReCall.Ye.executeMessage(Callback callback,String question)
-    Use [Ye.java, 43]                ReCall.Ye.executeMessage(Callback callback,String question)
+    Define [Ye.java, 23]             accept(Callback callback,String question)
+    Set [Ye.java, 23]                accept(Callback callback,String question)
+    Set [Ye.java, 25]                accept(Callback callback,String question)
+    Set [Ye.java, 34]                accept(Callback callback,String question)
+    Set [Ye.java, 36]                accept(Callback callback,String question)
+    Use [Ye.java, 43]                accept(Callback callback,String question)
 
 YeRestaurant.Restaurant.foods   (Private Variable)
   Declared as: List<Food>=ArrayList()
@@ -14511,7 +14511,7 @@ ch10.TunaFish   (Class)
 
 ReCall.Callback   (Public Interface)
     Define [Callback.java, 3]        Callback.java
-    Typed [Ye.java, 10]              ReCall.Ye.executeMessage.callback
+    Typed [Ye.java, 10]              accept.callback
     Implement [Stranger.java, 3]     ReCall.Stranger
     Implement [Wang.java, 3]         ReCall.Wang
 
@@ -14521,7 +14521,7 @@ ReCall.Stranger   (Public Class)
     Use [Stranger.java, 19]          ReCall.Stranger.askQuestion.(Anon_1).run
     Create [Test.java, 9]            ReCall.Test.main(String[] args)
     Typed [Test.java, 9]             ReCall.Test.main.stranger
-    Use [Ye.java, 26]                ReCall.Ye.executeMessage(Callback callback,String question)
+    Use [Ye.java, 26]                accept(Callback callback,String question)
 
 ReCall.Stranger.askQuestion.(Anon_1)   (Anonymous Class)
     Define [Stranger.java, 11]       ReCall.Stranger.askQuestion(String question)
@@ -14535,7 +14535,7 @@ ReCall.Wang   (Public Class)
     Use [Wang.java, 30]              ReCall.Wang.askQuestion.(Anon_1).run
     Create [Test.java, 8]            ReCall.Test.main(String[] args)
     Typed [Test.java, 8]             ReCall.Test.main.xiaodong
-    Use [Ye.java, 24]                ReCall.Ye.executeMessage(Callback callback,String question)
+    Use [Ye.java, 24]                accept(Callback callback,String question)
 
 ReCall.Wang.askQuestion.(Anon_1)   (Anonymous Class)
     Define [Wang.java, 22]           ReCall.Wang.askQuestion(String question)
@@ -22002,7 +22002,7 @@ ch10.Top.accept(PieVistor1 ask)
                          Simple Invocation Tree Report
 ===============================================================================
 
-ReCall.Stranger.accept(String result)
+receive(String result)
 | java.io.PrintStream.println(String x)
 
 ReCall.Stranger.askQuestion(String question)
@@ -22011,7 +22011,7 @@ ReCall.Stranger.askQuestion(String question)
 | ReCall.Stranger.play
 
 ReCall.Stranger.askQuestion.(Anon_1).run
-| ReCall.Ye.executeMessage(Callback callback,String question)
+| accept(Callback callback,String question)
 
 ReCall.Stranger.play
 | java.io.PrintStream.println(String x)
@@ -22022,7 +22022,7 @@ ReCall.Test.main(String[] args)
 | ReCall.Wang.askQuestion(String question)
 | ReCall.Stranger.askQuestion(String question)
 
-ReCall.Wang.accept(String result)
+receive(String result)
 | java.io.PrintStream.println(String x)
 
 ReCall.Wang.askQuestion(String question)
@@ -22031,16 +22031,16 @@ ReCall.Wang.askQuestion(String question)
 | ReCall.Wang.play
 
 ReCall.Wang.askQuestion.(Anon_1).run
-| ReCall.Ye.executeMessage(Callback callback,String question)
+| accept(Callback callback,String question)
 
 ReCall.Wang.play
 | java.io.PrintStream.println(String x)
 
-ReCall.Ye.executeMessage(Callback callback,String question)
+accept(Callback callback,String question)
 | java.io.PrintStream.println(String x)
-| ReCall.Callback.accept(String result)  (Virtual)
-| ReCall.Stranger.accept(String result)  (Virtual)
-| ReCall.Wang.accept(String result)  (Virtual)
+| receive(String result)  (Virtual)
+| receive(String result)  (Virtual)
+| receive(String result)  (Virtual)
 
 YeRestaurant.Restaurant
 | java.util.ArrayList.ArrayList
@@ -26086,7 +26086,7 @@ ch10.TunaFish.equals(Object o)
    Count Path:                        1
    Count Path Log:                        0
 
-ReCall.Stranger.accept(String result)
+receive(String result)
    Cyclomatic:                        1
    Modified Cyclomatic:               1
    Strict Cyclomatic:                 1
@@ -26143,7 +26143,7 @@ ReCall.Test.main(String[] args)
    Count Path:                        1
    Count Path Log:                        0
 
-ReCall.Wang.accept(String result)
+receive(String result)
    Cyclomatic:                        1
    Modified Cyclomatic:               1
    Strict Cyclomatic:                 1
@@ -26191,7 +26191,7 @@ ReCall.Wang.Wang(Ye ye)
    Count Path:                        1
    Count Path Log:                        0
 
-ReCall.Ye.executeMessage(Callback callback,String question)
+accept(Callback callback,String question)
    Cyclomatic:                        5
    Modified Cyclomatic:               5
    Strict Cyclomatic:                 5
@@ -32484,7 +32484,7 @@ java.lang.Object.getClass (Unresolved Method)
                               Program Unit Metrics
 ===============================================================================
 
-ReCall.Callback.accept(String result) (Public Abstract Method)
+receive(String result) (Public Abstract Method)
    Lines:                   5
    Comment Lines:           4
    Blank Lines:             0
@@ -32496,7 +32496,7 @@ ReCall.Callback.accept(String result) (Public Abstract Method)
    Declaration Statements:  1
    Ratio Comment/Code:      4.00
 
-ReCall.Stranger.accept(String result) (Public Method)
+receive(String result) (Public Method)
    Lines:                   3
    Comment Lines:           0
    Blank Lines:             0
@@ -32571,7 +32571,7 @@ ReCall.Test.main(String[] args) (Public Static Method)
    Declaration Statements:  4
    Ratio Comment/Code:      0.71
 
-ReCall.Wang.accept(String result) (Public Method)
+receive(String result) (Public Method)
    Lines:                   3
    Comment Lines:           0
    Blank Lines:             0
@@ -32634,7 +32634,7 @@ ReCall.Wang.Wang(Ye ye) (Public Constructor)
    Declaration Statements:  1
    Ratio Comment/Code:      1.33
 
-ReCall.Ye.executeMessage(Callback callback,String question) (Public Method)
+accept(Callback callback,String question) (Public Method)
    Lines:                   40
    Comment Lines:           18
    Blank Lines:             6
