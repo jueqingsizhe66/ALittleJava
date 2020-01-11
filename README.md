@@ -411,7 +411,7 @@ new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801T
 ```
 #### PiemanM的作用
 
-只不过是为了侧是方便，在初始原基的基础上可以不断add,rem等基本函数特性。
+只不过是为了测试方便，在初始原基的基础上可以不断add,rem等基本函数特性。
 
 概念总结：
 
@@ -961,7 +961,24 @@ One hole one name, One person one name(maybe many names in different occasions)
 
 3.组基(compose the similar and useful objects into one products) 
 
-4.升基(update your vectos to update your products) 
+4.升基(update your vectors to update your products) 
+
+
+## 集中于行为
+
+在定基的基础上，或者在当前的所获得的的知识结构的基础上，想要寻求做什么? 突破已经做了什么？
+
+应该集中于行为的思考，抛开objects，而关注behaviors，也就是下图中的functions部分。
+
+对象会call行为接口，行为实现类会去实现对应类的实际行为，但是行为是否ok？
+
+1. 行为是否有效？方便?
+2. 行为是否有益？
+3. 行为是否可持续?
+4. 行为是否可改善?
+
+
+![behaviors][12]
 
 ---------------------------------------------------------------------------------
 
@@ -976,4 +993,4 @@ One hole one name, One person one name(maybe many names in different occasions)
 [9]:https://github.com/jueqingsizhe66/DesignPattern 
 [10]:https://www.cnblogs.com/cicaday/p/python-decorator.html 
 [11]:http://www.gigamonkeys.com/book/macros-defining-your-own.html 
-
+[12]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/behaviors.png
