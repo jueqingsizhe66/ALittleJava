@@ -44,12 +44,16 @@
     </option>
   </component>
   <component name="ProjectId" id="1WF1y4baiHsIbLY0LUSBz25Gz6X" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -359,7 +363,7 @@
       <workItem from="1559843605523" duration="63000" />
       <workItem from="1562159158880" duration="1089000" />
       <workItem from="1565666029285" duration="502000" />
-      <workItem from="1578730782354" duration="1170000" />
+      <workItem from="1578730782354" duration="2819000" />
     </task>
     <servers />
   </component>
@@ -392,6 +396,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

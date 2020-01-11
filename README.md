@@ -972,6 +972,8 @@ One hole one name, One person one name(maybe many names in different occasions)
 
 对象会call行为接口，行为实现类会去实现对应类的实际行为，但是行为是否ok？
 
+**数据或者参数序列去找函数!!!**
+
 1. 行为是否有效？方便?
 2. 行为是否有益？
 3. 行为是否可持续?
@@ -979,6 +981,14 @@ One hole one name, One person one name(maybe many names in different occasions)
 
 
 ![behaviors][12]
+
+进一步观看[clojure component is enough][13]这个视频
+
+1. locally config(Static config)
+2. dynamic (Run State)
+3. lifycycle
+4. Constructos
+5. dependencies inject
 
 ---------------------------------------------------------------------------------
 
@@ -994,3 +1004,4 @@ One hole one name, One person one name(maybe many names in different occasions)
 [10]:https://www.cnblogs.com/cicaday/p/python-decorator.html 
 [11]:http://www.gigamonkeys.com/book/macros-defining-your-own.html 
 [12]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/behaviors.png
+[13]:https://www.youtube.com/watch?v=13cmHf_kt-Q&index=26&list=PLZdCLR02grLp__wRg5OTavVj4wefg69hM 
