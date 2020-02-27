@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d416ebf5-92d9-4d98-b56c-910d20c5afcc" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/Acceptor.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ReCall/Callback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReCall/Callback.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +70,7 @@
       <recent name="ch081" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\ManyHomes\IntellijHome\The-Little-Java" />
       <recent name="K:\IntellijHome\The-Little-Java\src\Ch0801ThatOverload" />
     </key>
   </component>
@@ -363,7 +367,9 @@
       <workItem from="1559843605523" duration="63000" />
       <workItem from="1562159158880" duration="1089000" />
       <workItem from="1565666029285" duration="502000" />
-      <workItem from="1578730782354" duration="2819000" />
+      <workItem from="1578730782354" duration="3446000" />
+      <workItem from="1580908531748" duration="31000" />
+      <workItem from="1582792152779" duration="1456000" />
     </task>
     <servers />
   </component>
@@ -399,6 +405,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="529" y="272" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1582792173544">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="529" y="272" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.768@0.0.1366.768" timestamp="1582792173544" />
+    <state x="363" y="208" key="com.intellij.ide.util.TipDialog" timestamp="1580908535038">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="363" y="208" key="com.intellij.ide.util.TipDialog/0.0.1366.768@0.0.1366.768" timestamp="1580908535038" />
+    <state x="57" y="79" key="new project wizard" timestamp="1580908558669">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="57" y="79" key="new project wizard/0.0.1366.768@0.0.1366.768" timestamp="1580908558669" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1582793180393">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1582793180393" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

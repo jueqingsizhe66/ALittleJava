@@ -990,6 +990,31 @@ One hole one name, One person one name(maybe many names in different occasions)
 4. Constructos
 5. dependencies inject
 
+
+## I am acceptor
+
+我会使用new new new new new的方式创建对象?
+不太会，遍历所有对象? 但是想法可以这样思考
+
+### 递归模式
+
+1. 递归调用的方式(new 方法  构造函数截取  r.accept(this))
+2. 停止递归的出口(return true or false)
+
+### 对象类中：
+1. 引入行为类字段(fields)
+2. 改为引入行为方法类形参(consume)
+3. 改为行为方法形参统一为接口closure类
+4. 统一所有对象函数为accept(接口父类)
+
+### 接口类中(行为类):
+1. 方法类中添加行为内容(删掉什么? 替换什么)
+2. 改为方法构造类中添加行为内容(删掉什么? 替换什么?)
+3. 改为行为方法形参统一为接口closure类
+
+不断改进地过程中，体现设计模式带你不一样的感觉。
+
+![I am acceptor][14]
 ---------------------------------------------------------------------------------
 
 [1]: https://a-little-java-a-few-patterns.readthedocs.io/zh_CN/latest/
@@ -1005,3 +1030,4 @@ One hole one name, One person one name(maybe many names in different occasions)
 [11]:http://www.gigamonkeys.com/book/macros-defining-your-own.html 
 [12]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/behaviors.png
 [13]:https://www.youtube.com/watch?v=13cmHf_kt-Q&index=26&list=PLZdCLR02grLp__wRg5OTavVj4wefg69hM 
+[14]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/Acceptor.png
