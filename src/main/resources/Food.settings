@@ -1,0 +1,12 @@
+# -------------------------------------------------------------
+# ----- Setting File with UTF8-----
+# ----- 菜单配置文件 -----
+# -------------------------------------------------------------
+[demo]
+Apple=YeRestaurant.Cai.Apple
+Banana=YeRestaurant.Cai.Banana
+# 红烧肉
+HongShaoRou=YeRestaurant.Cai.HongShaoRou
+QingJiaoRouSi=YeRestaurant.Cai.QingJiaoRouSi
+SuanTaiChaoRou=YeRestaurant.Cai.SuanTaiChaoRou
+TangCuLiYu=YeRestaurant.Cai.TangCuLiYu

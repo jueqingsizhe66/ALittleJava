@@ -1,17 +1,14 @@
 package YeRestaurant;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class Restaurant {
 /**
  * 情景 : 有一家餐厅,时常更换菜品 , 客人进店时向客人展示所有的菜品,
  * 要求开发一个扩充性好的程序,就是更换菜品时只需要做一些简单的配置就可以
  *
- * 反射基本上 自己自学 看的    视频没怎么听
  */
 
 
@@ -43,7 +40,11 @@ public class Restaurant {
     {
         try
         {
-            InputStream is = Restaurant.class.getResourceAsStream("food.properties");
+            //InputStream is = Restaurant.class.getClassLoader().getResourceAsStream("Food.properties");
+//            InputStream is = Restaurant.class.getResourceAsStream("src/main/resources/Food.properties");
+            File file = new File("src/main/resources/Food.properties");
+            InputStream is = new FileInputStream(file);
+
             Properties prop = new Properties();
             /**
              *  要知道 food.properties 的key-value的写法
@@ -82,6 +83,8 @@ public class Restaurant {
         } catch (IllegalAccessException e)
         {
             // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
