@@ -19,4 +19,4 @@
 
 ![Restaurant][1]
 
-[1]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/src/YeRestaurant/Restaurant.png
+[1]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/src/main/java/YeRestaurant/Restaurant.png
