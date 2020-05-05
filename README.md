@@ -484,6 +484,60 @@ public class Top
 P61 归纳了data part to understand what things is. action part to understand
 how things work
 
+### 研究出发点
+
+- pizza-pie(注意pizza结合pie使用top和bot的方式)
+- "Think first, experiment later"
+- 出发点1: 防止overhelming的信息
+  - But we don't know of a better way to organize these definitions yet. 
+       Wasn't this last collection overwhelming?
+        Because it becomes more and more difficult
+        to understand the rationale for each of the
+        methods in a variant and what the
+        relationship is between methods of the same
+        name in the different variants.
+    - 出发点2: super(x,y)
+        The expressions super(_x,_y) in the constructors CartesianPt and ManhattanPt
+        create a PointP with the appropriate fields, and the respective constructor guarantees
+        that the point becomes a CartesianPt or a ManhattanPt.
+    - 出发点3: characterizing everything for the PointD?
+        Do we now have everything that characterizes PointPs in the datatype?
+    - Default constructors never consume values, and, when used with new , always create objects without fields. 
+    - accept接收访问者，并立即反向调取核心功能(instantly)，这也是点号和函数调用的意思
+      new立即调用构造函数，并递归调用accept的相关方法
+
+    - why do we need to know the meaning of the ...? what is the value of ...?
+- how do we determine the answer for ...?  we need to determine one more time which version of function we must use.
+- 函数versions(funct-v1.0)
+- 出发点4: 联想super，
+- 出发点5：this，以及可改变的this(new LisSubst(c-1, n,t,r)),this代表所有的visitors;  that 代表所有datatypes
+  this 和 that来回变换。
+- 出发点6: We want all the methods in one class.  
+   And that's the whole point. what point?
+   Those methods that would have the same name if we placed them into the variants of a datatype in one class.
+   That's what we are about to do. We are going to separate the action from the datatype.
+- 出发点7: 分离行为和数据类型
+- 出发点8：You never know when it might be useful, even if it does not contain any interesting information. 
+   let's just consider RemV
+
+- 出发点9: hands over!
+    Simple: rem asks for the forBot service from
+    remFn and hands over the Object it
+    consumes; subst asks for the forBot service
+    from substFn and hands over the two Objects
+    it consumes
+ 
+    ---field values and two objects 替换the object(自然递归)
+    Simpler: rem asks for the for Top service
+    from remFn and hands over the field values
+    and the Object it consumes; subst asks for
+    the for Top service from substFn and hands
+    over the field values and the two Objects it
+    consumes.
+    ---结果： That's right. Nothing else changes in the variants. Instead of relying on fields of the datatype, we use what is consumed.
+    We still have some work to do. 
+    Consuming an extra value here also affects how the methods rem and subst are used.
+
 P58开始提及data part 和action part
 数据的抽象是为了进行分层架构，逻辑划分
 行为的抽象是为了简化代码编写，实现多接口编程
@@ -839,7 +893,6 @@ return "new " + getClass().getName() + "(" + this.t + ", " + this.r + ")";
 哪种for，比如for(BlackDuck t, ...)
 for(RedDuck t, ...)
 也就是行为接口函数不需要写上一堆的for哪个哪个对象，直接for(...)根据参数类型重载(一个类里面，方法名字相同，而参数不同)所有的for方法。
-
 但是这样不好，因为BlueDuck有可能具有全新的属性，但是Duck没有，这会导致属性值存在问题，具体可以参考[设计模式学习][9]
 
 所以暂时放弃！可以通过代理方法等，进一步简化调用过程。
@@ -849,15 +902,18 @@ for(RedDuck t, ...)
 后来发现DuckVisitor ask 变成ThingVisitor prepare 
 那么以后你就可以定义很多thingObject, 比如审查对象(CheckThing)，提交对象(SubmitThing), 
 
-prepare.ForCheck(Thing..)
-prepare.ForSubmit(Thing..)
-prepare.ForUpdate(Thing..)
-prepare.ForUpgrade(Thing..)
-prepare.ForChildRen(Thing..)
-prepare.ForWedding(Thing..)
-prepare.ForTourist(Thing..)
-prepare.ForExamination(Thing..)
-prepare.ForPractice(Thing..)
+```
+    prepare.ForCheck(Thing..)
+    prepare.ForSubmit(Thing..)
+    prepare.ForUpdate(Thing..)
+    prepare.ForUpgrade(Thing..)
+    prepare.ForChildRen(Thing..)
+    prepare.ForWedding(Thing..)
+    prepare.ForTourist(Thing..)
+    prepare.ForExamination(Thing..)
+    prepare.ForPractice(Thing..)
+
+```
 
 ### python装饰器模型
 
@@ -949,7 +1005,9 @@ def bbs():
   "Optional documentation string."
   body-form*)
 ```
-Like a function, a macro consists of a name, a parameter list, an optional documentation string, and a body of Lisp expressions.1 However, as I just discussed, the job of a macro isn't to do anything directly--its job is to generate code that will later do what you want.
+
+Like a function, a macro consists of a name, a parameter list, an optional documentation string, and a body of Lisp expressions.
+1 However, as I just discussed, the job of a macro isn't to do anything directly--its job is to generate code that will later do what you want.
 
 One hole one name, One person one name(maybe many names in different occasions)
 
@@ -1019,6 +1077,14 @@ One hole one name, One person one name(maybe many names in different occasions)
 
 ## 加入Maven支持
 YeRestaurant引入hutool
+
+## 函数式编程方法(输入输出驱动)
+the functional (input-output driven) method of program
+design naturally leads to the use of well-known object-oriented design patterns
+
+1. 驱动Driver其实就是注册类,放入可调用、可追踪范围内(势力范围内，招进来)
+2. 连接Connection就是调用注册类，创建实例(用起来)
+3. 实际的工作过程
 
 ---------------------------------------------------------------------------------
 

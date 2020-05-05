@@ -1,7 +1,7 @@
   create -languages Java  -FileEncoding UTF-8 ./the-littl-java.udb
   add ./ ./the-littl-java.udb
   settings -javaVersion Java8
-  settings -javaClassPaths K:\JAVA\JDK\src.zip K:\JAVA\JDK\jre\lib\rt.jar
+  settings -javaClassPaths d:/ManyHomes/JAVA/jdk-13.0.2/lib/src.zip 
   settings -reportDisplayCreationDate on
   settings -reportDisplayParameters on
   settings -reportOutputDirectory ./analysis/htmlDir ./the-littl-java.udb
@@ -10,4 +10,3 @@
   analyze ./the-littl-java.udb
   report ./the-littl-java.udb
   metrics ./the-littl-java.udb
-
