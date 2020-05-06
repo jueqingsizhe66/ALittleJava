@@ -9,92 +9,24 @@ Introspect 和 retrospect具有类似的地方(review ,look back on, backcall)
 
 [How Do Procurement Networks Become Social? Design Principles Evaluation in a Heterogeneous Environment of Structured and Unstructured Interactions][3]
 
-
 ![design][4]
+
+# 术语
+
 ## 对象和行为
 
-
-一个访问模式包含着一片对象和一类行为，行为中又可以根据相同和不同点划分
-不同的风格(style)和类别
+一个访问模式包含着一片对象和一类行为，行为中又可以根据相同和不同点划分不同的风格(style)和类别
 
 A type is a name for a collection of values
 
 Define-Datetype(Abstract)相当于定义了一个类型，比如KebabD,RobD
 
-### abstract 、 class 、 extends 各代表什么？
+## abstract 、 class 、 extends 各代表什么？
 
 1.    `abstract` 定义类型(基本类型)
 2.    `class` 定义子类型(自定义类型)
 3.    `extends` 将以上两者联系起来(连接起来),属性和行为联合起来,也就是可以使用super(x,y)进行父类构造
 
-
-### 第一条建议: 
-
-When specifying a collection of data,
-use abstract classes for datatypes and
-extended classes for variants.
-
-揭示点： java的基本类型(并非对象，是不完整的对象)不能直接作为自定义类型来使用，而是先和自定义类型
-结合起来才能使用!
-
-### 第三条建议
-
-When writing a function that returns values of a datatype,
-use new to create these values.
-
-揭示点: new可以通过自定义类型产生新值，这边通过toString反馈出来，new类似于+，*， cons的作用，
-对应的构造函数类似于-,/,car or cdr的作用(2019-05-24 是有这种感觉,类似下文的非初始原基), 而
-terminal element 相当于 0, 1,null?的作用(类似下文的所有初始原基)
-
-#### 拓展延伸(lisp部分)
-[From-little-scheme-to-seazon-scheme][6]
-
-[从lambda到simple+complex解释器再到树形抽象 ][7]
-
-[The-Little-Scheme-And-Part-Of-TSS ][8] 学到了equal? 和insert-g以及interpreter
-
-认识到等号的有效性(以及Java中的Comparator类， 联想到sort信息等)
-``` scheme
-
-(define equal1?
-    (lambda (s1 s2)
-        (cond
-            ((and (atom? s1) (atom? s2))
-                (eqan? s1 s2))
-            ((or (atom? s1) (atom? s1))
-#f)
-            (else
-                (eqlist? s1 s2)))))
-
-```
-
-还比如insert-g
-
-```scheme
-
-;;; so you can (insert-g seqL)  (insert-g seqR)
-;;; (define insertL (insert-g seqL))
-;;; (define insertR (insert-g seqR))
-;;;
-;;;
-(define insert-g
-    (lambda (seq)
-        (lambda (new old l)
-            (cond
-                ((null? l) (quote ()))
-                    ((eq? (car l) old)
-                    (seq new old (cdr l)))
-                (else (cons (car l)
-                    ((insert-g seq) new old (cdr l))))))))
-;;; So we can define insertL again with insert-g *****************************^-^************************************
-;;; Do not pass in seqL this time.
-(define insertL1
-    (insert-g
-        (lambda (new old l)
-            (cons new (cons old l)))))
-
-```
-----------------------------------------------------------------------------------
 
 核心点：通过构造函数（类似于y lambda的功能）  按照natural recursion 不断递归到结尾。
 
@@ -102,9 +34,96 @@ terminal element 相当于 0, 1,null?的作用(类似下文的所有初始原基
 基类字段，直接返回值(new),递归结束
 Object是FishD,Int等所有类的父类，最原始类
 
-发展过程：
+原基：结构类，rem,subst等最终归并为accept，返回值boolean,int,TreeD等也归并为Object，参数均归并为访问者对象
 
-#### 第一步：
+初始原基: 一般代表递归的结束，直接返回对象
+非初始原基(可吃原基):一般代表natural recursion，可以不断递归
+
+行为V类：气动类，用于归并行为 比如早先的subst,rem等
+行为接口: 气动类，比如PieVisitor， 提供forBot，forTop等服务，总结仍不到位!
+行为变异接口：比如SubstV，RemV，LstSubstV,UnionV等
+
+### The thinking of characteristics vector
+
+1.定基(Define interfae in software interfaces; define base of ground in building engineering)
+
+2.变基(expand the macros to let it different)
+
+3.组基(compose the similar and useful objects into one products) 
+
+4.升基(update your vectors to update your products) 
+
+
+### 集中于行为
+
+在定基的基础上，或者在当前的所获得的的知识结构的基础上，想要寻求做什么? 突破已经做了什么？
+应该集中于行为的思考，抛开objects，而关注behaviors，也就是下图中的functions部分。
+对象会call行为接口(线程开辟)，行为实现类会去实现对应类的实际行为，但是行为是否ok？
+
+**数据或者参数序列去找函数!!!**
+
+1. 行为是否有效？方便?
+2. 行为是否有益？
+3. 行为是否可持续?
+4. 行为是否可改善?
+
+
+![behaviors][12]
+### 研究出发点
+
+- pizza-pie(注意pizza结合pie使用top和bot的方式)
+- "Think first, experiment later"
+- 出发点1: 防止overhelming的信息
+  - But we don't know of a better way to organize these definitions yet. 
+       Wasn't this last collection overwhelming?
+        Because it becomes more and more difficult
+        to understand the rationale for each of the
+        methods in a variant and what the
+        relationship is between methods of the same
+        name in the different variants.
+- 出发点2: super(x,y), 联想到他的作用
+        The expressions super(_x,_y) in the constructors CartesianPt and ManhattanPt
+        create a PointP with the appropriate fields, and the respective constructor guarantees
+        that the point becomes a CartesianPt or a ManhattanPt.
+- 出发点3: characterizing everything for the PointD?
+        Do we now have everything that characterizes PointPs in the datatype?
+    - Default constructors never consume values, and, when used with new , always create objects without fields. 
+    - accept接收访问者，并立即反向调取核心功能(instantly)，这也是点号和函数调用的意思
+      new立即调用构造函数，并递归调用accept的相关方法
+    - why do we need to know the meaning of the ...? what is the value of ...?
+- how do we determine the answer for ...?  we need to determine one more time which version of function we must use.
+- 函数versions(funct-v1.0.1)
+- 出发点4：this，以及可改变的this(new LisSubst(c-1, n,t,r)),this代表所有的visitors;  that 代表所有datatypes
+  this 和 that来回变换。
+- 出发点5: We want all the methods in one class.  
+   And that's the whole point. what point?
+   Those methods that would have the same name if we placed them into the variants of a datatype in one class.
+   That's what we are about to do. We are going to separate the action from the datatype.
+- 出发点6: 分离行为和数据类型
+- 出发点7：You never know when it might be useful, even if it does not contain any interesting information. 
+   let's just consider RemV
+
+- 出发点8: hands over!
+    Simple: rem asks for the forBot service from
+    remFn and hands over the Object it
+    consumes; subst asks for the forBot service
+    from substFn and hands over the two Objects
+    it consumes
+ 
+    ---field values and two objects 替换the object(自然递归)
+    Simpler: rem asks for the for Top service
+    from remFn and hands over the field values
+    and the Object it consumes; subst asks for
+    the for Top service from substFn and hands
+    over the field values and the two Objects it
+    consumes.
+    ---结果： That's right. Nothing else changes in the variants. Instead of relying on fields of the datatype, we use what is consumed.
+    We still have some work to do. 
+    Consuming an extra value here also affects how the methods rem and subst are used.
+
+## 研究发展过程：
+
+### 第一步：
 
 
 首先是把不相关的属性放入自定义类中，
@@ -198,7 +217,7 @@ PizzaD subAwC() {
 到此，说明了原基、初始原基(terminate condition)和非初始原基(natural recursion)等概念，
 下面借用该概念继续理解该书。
 
-#### 第二步：(开始出现访问者字眼)
+### 第二步：(开始出现访问者字眼)
 
 提出一个自定义的V类，实现所有针对于各个对象的for函数，然后把V类添加到基类中，并且生成值，
 自定义类通过V类值来实现抽象行为。(并没有解决问题，只是把所有类的行为，抽象到一个行为V类，
@@ -274,9 +293,6 @@ public abstract class YangRouChuan {
     abstract boolean isVegetarian();//烤串上是不是全是蔬菜
 }
 ```
-
-
-
 完整行为变异接口(有从abstract过渡到interface)
 
 ```java
@@ -288,20 +304,17 @@ interface  TreeVisitorI{
 }
 
 ```
-#### 第三步：（引入行为V类参数到构造函数)          
+### 第三步：（引入行为V类参数到构造函数)          
 
-把基类中的行为V类放到基函数(构造函数)的参数中，而不是放在基函数的字段field中，减少了基类函数长度。
-
+  把基类中的行为V类放到基函数(构造函数)的参数中，而不是放在基函数的字段field中，减少了基类函数长度。
 关键的this出现了，在行为类中引入this. this的出现使得代码本身具有闭包的感觉(yes?)。
-
 this指代当前访问者本身（也就是说这一步的重要改进就是通过基函数和this改变了代码的显示风格代码量没有太多实质性的减少，只不过从字段移到了参数，感觉行数少了，但是单词数也多了 
+这是第二次进化在此基础上，开始进行第三次进化，把固定不变的量提到访问者V类(the occurrence of closure concept)，比如rem，删除某个东西是固定的，于是改进行为V类的构造函数，
+这样可以减少核心函数的参数个数,比如subst，从什么变到什么，也是不变的，于是也提到行为V类中
 
-这是第二次进化在此基础上，开始进行第三次进化，把固定不变的量提到访问者V类(the occurrence of closure concept)，比如rem，删除某个东西是固定的，于是改进行为V类的构造函数，这样可以减少核心函数的参数个数,比如subst，从什么变到什么，也是不变的，于是也提到行为V类中
+在这次进化中，由于你把rem和subst的变化都提到行为V类中，于是对应的自定义类中的基函数实现很像出现重复性代码，考虑进行第四次进化
 
-在这次进化中，由于你把rem和subst的变化都提到行为V类中，于是对应的自定义类中的基函数实现很像出现重复
-性代码，考虑进行第四次进化
-
-#### 第四步: 行为V类变为行为接口(interface  TreeVisitor)        
+### 第四步: 行为V类变为行为接口(interface  TreeVisitor)        
 
 把行为V自定义类的方法抽象出一个接口函数，然后行为V类都实现改接口(implements在第四次进化中出现了)
 
@@ -317,13 +330,13 @@ this指代当前访问者本身（也就是说这一步的重要改进就是通�
 通过四次进化，得到关键概念： 基类(行为基类)，行为V类，基函数，函数参数，构造函数，行为基函数，行为自定义V类
 abstract,new,extends, super, this, interface,implements都在其中有所体现。
 
-##### closure的出现
+#### closure的出现
 
 另外由于行为追加了行为属性，把一些不变的属性纳入行为的字段，通过构造函数幅值，不需要handle forward and back
 传来传去，直接用that.t 和that.r来代替,这也叫做闭包(行为追加属性)。
 可以参考第五步的SubstV
 
-#### 第五步 统一结构为that 气动为this
+### 第五步 统一所有的操作函数为this，非操作函数为that
 
 也就是把SubstV 和RemV的forTop等函数的参数通过增加(Top that)来代替，因为结构类中已经追加了
 结构属性(在Top Bot等初始原基和非初始原基中增加属性)
@@ -401,6 +414,7 @@ public PieDUpdate forTop(Top that){ //不能用int
 }
 ```
 结果
+
 ```java
 
 new ch0801That.Top(5, new ch0801That.Top(10, new ch0801That.Bot))
@@ -409,22 +423,12 @@ new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801T
 new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801That.Top(300, new ch0801That.Top(13, new ch0801That.Top(3, new ch0801That.Bot))))))
 new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801That.Top(300, new ch0801That.Top(13, new ch0801That.Top(300, new ch0801That.Bot))))))
 ```
-#### PiemanM的作用
+### PiemanM的作用
 
 只不过是为了测试方便，在初始原基的基础上可以不断add,rem等基本函数特性。
 
-概念总结：
 
-原基：结构类，rem,subst等最终归并为accept，返回值boolean,int,TreeD等也归并为Object，参数均归并为访问者对象
-
-初始原基: 一般代表递归的结束，直接返回对象
-非初始原基(可吃原基):一般代表natural recursion，可以不断递归
-
-行为V类：气动类，用于归并行为 比如早先的subst,rem等
-行为接口: 气动类，比如PieVisitor， 提供forBot，forTop等服务，总结仍不到位!
-行为变异接口：比如SubstV，RemV，LstSubstV,UnionV等
-
-#### 第6步 修改实例属性，return that
+### 第6步 修改实例属性，return that
 
 ```java
 class SubstV implements PieVisitorI {
@@ -481,62 +485,37 @@ public class Top
 }
 ```
 
+## I am acceptor
+
+我会使用new new new new new的方式创建对象?
+不太会，遍历所有对象? 但是想法可以这样思考
+
+### 递归模式
+
+1. 递归调用的方式(new 方法  构造函数截取  r.accept(this))
+2. 停止递归的出口(return true or false)
+
+### 对象类中：
+1. 引入行为类字段(fields)
+2. 改为引入行为方法类形参(consume)
+3. 改为行为方法形参统一为接口closure类
+4. 统一所有对象函数为accept(接口父类)
+
+### 接口类中(行为类):
+1. 方法类中添加行为内容(删掉什么? 替换什么)
+2. 改为方法构造类中添加行为内容(删掉什么? 替换什么?)
+3. 改为行为方法形参统一为接口closure类
+
+不断改进地过程中，体现设计模式带你不一样的感觉。
+
+![I am acceptor][14]
+
+
+## 章节索引
+
 P61 归纳了data part to understand what things is. action part to understand
 how things work
 
-### 研究出发点
-
-- pizza-pie(注意pizza结合pie使用top和bot的方式)
-- "Think first, experiment later"
-- 出发点1: 防止overhelming的信息
-  - But we don't know of a better way to organize these definitions yet. 
-       Wasn't this last collection overwhelming?
-        Because it becomes more and more difficult
-        to understand the rationale for each of the
-        methods in a variant and what the
-        relationship is between methods of the same
-        name in the different variants.
-    - 出发点2: super(x,y)
-        The expressions super(_x,_y) in the constructors CartesianPt and ManhattanPt
-        create a PointP with the appropriate fields, and the respective constructor guarantees
-        that the point becomes a CartesianPt or a ManhattanPt.
-    - 出发点3: characterizing everything for the PointD?
-        Do we now have everything that characterizes PointPs in the datatype?
-    - Default constructors never consume values, and, when used with new , always create objects without fields. 
-    - accept接收访问者，并立即反向调取核心功能(instantly)，这也是点号和函数调用的意思
-      new立即调用构造函数，并递归调用accept的相关方法
-
-    - why do we need to know the meaning of the ...? what is the value of ...?
-- how do we determine the answer for ...?  we need to determine one more time which version of function we must use.
-- 函数versions(funct-v1.0)
-- 出发点4: 联想super，
-- 出发点5：this，以及可改变的this(new LisSubst(c-1, n,t,r)),this代表所有的visitors;  that 代表所有datatypes
-  this 和 that来回变换。
-- 出发点6: We want all the methods in one class.  
-   And that's the whole point. what point?
-   Those methods that would have the same name if we placed them into the variants of a datatype in one class.
-   That's what we are about to do. We are going to separate the action from the datatype.
-- 出发点7: 分离行为和数据类型
-- 出发点8：You never know when it might be useful, even if it does not contain any interesting information. 
-   let's just consider RemV
-
-- 出发点9: hands over!
-    Simple: rem asks for the forBot service from
-    remFn and hands over the Object it
-    consumes; subst asks for the forBot service
-    from substFn and hands over the two Objects
-    it consumes
- 
-    ---field values and two objects 替换the object(自然递归)
-    Simpler: rem asks for the for Top service
-    from remFn and hands over the field values
-    and the Object it consumes; subst asks for
-    the for Top service from substFn and hands
-    over the field values and the two Objects it
-    consumes.
-    ---结果： That's right. Nothing else changes in the variants. Instead of relying on fields of the datatype, we use what is consumed.
-    We still have some work to do. 
-    Consuming an extra value here also affects how the methods rem and subst are used.
 
 P58开始提及data part 和action part
 数据的抽象是为了进行分层架构，逻辑划分
@@ -584,9 +563,9 @@ P167 引入了that，在行为接口的对应函数引入Top that和Bot that，�
 P112 boolean,int,TreeD都属于Object，为了统一定义为Object返回类型即可(produce)
 接口间可以相互extends！！一次继承，多个实现是java的语言特性。
 
+java8的lambda编程，实现参数的行为化(名词动词话)
 
-成就点: java8的lambda编程，实现参数的行为化(名词动词话)
-
+### 附录代码
 
 ``` Perl
 KebabD: [
@@ -678,7 +657,8 @@ SeasoningD: [
 ## Recall or Backcall
 
 通过定义一个Callback接口，让Wang和Stranger具有callback特性，并且该类构造函数都知道
-要找Ye问问题，通过线程的方式不断问问，执行Ye的executeMessage方法。
+要找Ye问问题，通过线程的方式不断发出请求，执行Ye的executeMessage方法(逐个对象处理不同对象的提问)。
+
 
 Ye也不是随便回答问题，针对不同的Instance有不同的解决方案，最后回调给对应的callback实现类。
 
@@ -805,7 +785,6 @@ abstract class BlackDuck {
 
 } 
 ```
-
 以此类推，现在定义鸭子很简单
 
 ### 逻辑4
@@ -883,7 +862,6 @@ public String toString() {
 return "new " + getClass().getName() + "(" + this.t + ", " + this.r + ")";
 }
 }
-
 
 ```
 
@@ -1011,34 +989,6 @@ Like a function, a macro consists of a name, a parameter list, an optional docum
 
 One hole one name, One person one name(maybe many names in different occasions)
 
-## The thinking of characteristics vector
-
-1.定基(Define interfae in software interfaces; define base of ground in building engineering)
-
-2.变基(expand the macros to let it different)
-
-3.组基(compose the similar and useful objects into one products) 
-
-4.升基(update your vectors to update your products) 
-
-
-## 集中于行为
-
-在定基的基础上，或者在当前的所获得的的知识结构的基础上，想要寻求做什么? 突破已经做了什么？
-
-应该集中于行为的思考，抛开objects，而关注behaviors，也就是下图中的functions部分。
-
-对象会call行为接口，行为实现类会去实现对应类的实际行为，但是行为是否ok？
-
-**数据或者参数序列去找函数!!!**
-
-1. 行为是否有效？方便?
-2. 行为是否有益？
-3. 行为是否可持续?
-4. 行为是否可改善?
-
-
-![behaviors][12]
 
 进一步观看[clojure component is enough][13]这个视频
 
@@ -1047,32 +997,6 @@ One hole one name, One person one name(maybe many names in different occasions)
 3. lifycycle
 4. Constructos
 5. dependencies inject
-
-
-## I am acceptor
-
-我会使用new new new new new的方式创建对象?
-不太会，遍历所有对象? 但是想法可以这样思考
-
-### 递归模式
-
-1. 递归调用的方式(new 方法  构造函数截取  r.accept(this))
-2. 停止递归的出口(return true or false)
-
-### 对象类中：
-1. 引入行为类字段(fields)
-2. 改为引入行为方法类形参(consume)
-3. 改为行为方法形参统一为接口closure类
-4. 统一所有对象函数为accept(接口父类)
-
-### 接口类中(行为类):
-1. 方法类中添加行为内容(删掉什么? 替换什么)
-2. 改为方法构造类中添加行为内容(删掉什么? 替换什么?)
-3. 改为行为方法形参统一为接口closure类
-
-不断改进地过程中，体现设计模式带你不一样的感觉。
-
-![I am acceptor][14]
 
 
 ## 加入Maven支持
@@ -1085,6 +1009,79 @@ design naturally leads to the use of well-known object-oriented design patterns
 1. 驱动Driver其实就是注册类,放入可调用、可追踪范围内(势力范围内，招进来)
 2. 连接Connection就是调用注册类，创建实例(用起来)
 3. 实际的工作过程
+
+
+
+
+### 第一条建议: 
+
+        When specifying a collection of data,
+        use abstract classes for datatypes and
+        extended classes for variants.
+
+java的基本类型(并非对象，是不完整的对象)不能直接作为自定义类型来使用，而是先和自定义类型
+结合起来才能使用!
+
+### 第三条建议
+
+When writing a function that returns values of a datatype,
+use new to create these values.
+
+揭示点: new可以通过自定义类型产生新值，这边通过toString反馈出来，new类似于+，*， cons的作用，
+对应的构造函数类似于-,/,car or cdr的作用(2019-05-24 是有这种感觉,类似下文的非初始原基), 而
+terminal element 相当于 0, 1,null?的作用(类似下文的所有初始原基)
+
+#### 拓展延伸(lisp部分)
+
+[From-little-scheme-to-seazon-scheme][6]
+
+[从lambda到simple+complex解释器再到树形抽象 ][7]
+
+[The-Little-Scheme-And-Part-Of-TSS ][8] 学到了equal? 和insert-g以及interpreter
+
+认识到等号的有效性(以及Java中的Comparator类， 联想到sort信息等)
+
+``` scheme
+
+(define equal1?
+    (lambda (s1 s2)
+        (cond
+            ((and (atom? s1) (atom? s2))
+                (eqan? s1 s2))
+            ((or (atom? s1) (atom? s1))
+#f)
+            (else
+                (eqlist? s1 s2)))))
+
+```
+
+还比如insert-g
+
+```scheme
+
+;;; so you can (insert-g seqL)  (insert-g seqR)
+;;; (define insertL (insert-g seqL))
+;;; (define insertR (insert-g seqR))
+;;;
+;;;
+(define insert-g
+    (lambda (seq)
+        (lambda (new old l)
+            (cond
+                ((null? l) (quote ()))
+                    ((eq? (car l) old)
+                    (seq new old (cdr l)))
+                (else (cons (car l)
+                    ((insert-g seq) new old (cdr l))))))))
+;;; So we can define insertL again with insert-g *****************************^-^************************************
+;;; Do not pass in seqL this time.
+(define insertL1
+    (insert-g
+        (lambda (new old l)
+            (cons new (cons old l)))))
+
+```
+----------------------------------------------------------------------------------
 
 ---------------------------------------------------------------------------------
 
