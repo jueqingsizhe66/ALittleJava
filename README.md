@@ -2073,6 +2073,178 @@ PizzaD的类更多，让我们从更多的无聊和重复体味接口
 注意看行为类带参数的Closure出现了，且如果行为类参数发生变化，还得慎用this，因为
 this指代当前类带参数！原来LtdSubstV这么有趣
 
+### Bud vs [Flat Split]
+
+
+``` java
+  interface TreeVisitorI{
+      Object forBud();
+      Object forFlat(FruitD f, TreeD t); //-----不需要像Abstract类需要把方法加上Abstract
+      Object forSplit(TreeD l, TreeD r);
+  }
+
+
+  //-------------------DataType and the Bud Varient
+  abstract class TreeD{
+      abstract Object accept(TreeVisitorI ask);
+  }
+
+  class Bud extends TreeD{
+      Object accept(TreeVisitorI ask){
+          return ask.forBud();
+      }
+  }
+
+  class Flat extends TreeD{
+      FruitD f;
+      TreeD t;
+      Flat(FruitD _f, TreeD _t){
+          f = _f;
+          t = _t;
+      }
+
+      //-----------------------------------
+      Object accept(TreeVisitorI ask){
+          return askforFlat(f,t);
+      }
+  }
+
+  class Split extends TreeD{
+      TreeD l;
+      TreeD r;
+      Split(TreeD _l, TreeD _r){
+          l = _l;
+          r = _r;
+      }
+      //----------------------------------
+      Object accept(TreeVisitorI ask){
+          return ask.forSplit(l,r);
+      }
+  }
+
+  //-------------------接口实现类
+  class iHeightV implements TreeVisitorI{
+
+      public Object forBud(){
+          return 0;
+      }
+      public Object forFlat(FruitD f, TreeD t){
+          return t.accept(this)+1;
+      }
+      pulic Object forSplit(TreeD l, TreeD r){
+          return (l.accept(this) || r.accept(this)) +1; //----------some confusion for ||
+      }
+  }
+
+  class tSubstV implements TreeVisitorI{
+
+      FruitD n;
+      FruitD o;
+      tSubstV(FruitD _n , FruitD _o){
+          n = _n;
+          o = _o;
+      }
+      //-------------------------------------------------------------------------
+      public Object forBud(){
+          return new Bud();
+      }
+      public Object forFlat(FruitD f, TreeD t){
+          if(o.equals(f)){
+              return new Flat(n, t.accept(this));
+          }else{
+              return new Flat(f, t.accept(this));
+          }
+      }
+      pulic Object forSplit(TreeD l, TreeD r){
+          return new Split(l.accept(this) , r.accept(this));
+      }
+  }
+
+
+  class iOccursV implements TreeVisitorI{
+
+      FruitD a;
+      iOccursV(FruitD _a){
+          a = _a;
+      }
+      //-------------------------------------------------------------------------
+      ///////////////////////////////////////////////
+      // public Object forBud(){                   //
+      //     return 0; //----有问题                //
+      // }                                         //
+      // public Object forFlat(FruitD f, TreeD t){ //
+      //     if(a.equals(f)){                      //
+      //         return t.accept(this)+ 1;         //
+      //     }else{                                //
+      //         return  t.accept(this);           //
+      //     }                                     //
+      // }                                         //
+      // pulic Object forSplit(TreeD l, TreeD r){  //
+      //     return l.accept(this)+r.accept(this); //
+      // }                                         //
+      ///////////////////////////////////////////////
+
+
+      public Object forBud(){
+          return new Integer(0);
+      }
+      public Object forFlat(FruitD f, TreeD t){
+          if(a.equals(f)){
+              return new Integer(((Integer)
+                                  (t.accept(this)))
+                                 .intValue()
+                                 + 1 );
+          }else{
+              return  t.accept(this);
+          }
+      }
+      pulic Object forSplit(TreeD l, TreeD r){
+          return new Integer(((Integer)
+                              (l.accept(this)))
+                             .intValue()
+                             +
+                             ((Integer)
+                              (r.accept(this)))
+                             .intValue());
+      }
+  }
+
+
+  class IsFlatV implements TreeVisitorI{
+
+      public Object forBud(){
+          return new Boolean(true); //---------------注意true不是对象类，而是基本类型
+      }
+      public Object forFlat(FruitD f, TreeD t){
+          return t.accept(this);
+      }
+      pulic Object forSplit(TreeD l, TreeD r){
+          return new Boolean(false);
+      }
+  }
+
+
+  class IsSplitV implements TreeVisitorI{
+
+      public Object forBud(){
+          return new Boolean(true); //---------------注意true不是对象类，而是基本类型
+      }
+      public Object forFlat(FruitD f, TreeD t){
+          return new Boolean(false);
+      }
+      pulic Object forSplit(TreeD l, TreeD r){
+          //------because l.accept(this) produces an Object, we must first convert it to a Boolean
+          //------Then we can determine the underlying boolean with the booleanValue method.
+          if(((Boolean)(l.accept(this))).booleanValue()){
+              return r.accept(this);
+          }else
+              return new Boolean(false);
+      }
+  }
+  
+```
+
+
 --------------------------------------------------------------
 
 
