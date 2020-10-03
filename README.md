@@ -11,7 +11,56 @@ Introspect 和 retrospect具有类似的地方(review ,look back on, backcall)
 
 ![design][4]
 
-# 术语
+## 目录
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [-](#-)
+- [对象和行为](#对象和行为)
+- [abstract 、 class 、 extends 各代表什么？](#abstract--class--extends-各代表什么)
+    - [The thinking of characteristics vector](#the-thinking-of-characteristics-vector)
+    - [集中于行为](#集中于行为)
+    - [研究出发点](#研究出发点)
+    - [研究发展过程：](#研究发展过程：)
+        - [第一步：](#第一步：)
+        - [第二步：(开始出现访问者字眼)](#第二步：开始出现访问者字眼)
+        - [第三步：（引入行为V类参数到构造函数)](#第三步：引入行为v类参数到构造函数)
+        - [第四步: 行为V类变为行为接口(interface  TreeVisitor)](#第四步-行为v类变为行为接口interface--treevisitor)
+            - [closure的出现](#closure的出现)
+        - [第五步 统一所有的操作函数为this，非操作函数为that](#第五步-统一所有的操作函数为this非操作函数为that)
+        - [PiemanM的作用](#piemanm的作用)
+        - [第6步 修改实例属性，return that](#第6步-修改实例属性return-that)
+    - [I am acceptor](#i-am-acceptor)
+        - [递归模式](#递归模式)
+        - [对象类中：](#对象类中：)
+        - [接口类中(行为类):](#接口类中行为类)
+    - [章节索引](#章节索引)
+        - [附录代码](#附录代码)
+    - [Recall or Backcall](#recall-or-backcall)
+    - [Restaurant](#restaurant)
+    - [CIM](#cim)
+    - [总结](#总结)
+        - [逻辑1](#逻辑1)
+        - [逻辑2](#逻辑2)
+        - [逻辑3](#逻辑3)
+        - [逻辑4](#逻辑4)
+        - [逻辑5](#逻辑5)
+        - [逻辑6](#逻辑6)
+        - [python装饰器模型](#python装饰器模型)
+            - [最简单装饰器](#最简单装饰器)
+            - [较复杂装饰器](#较复杂装饰器)
+    - [Macro lisp](#macro-lisp)
+    - [加入Maven支持](#加入maven支持)
+    - [函数式编程方法(输入输出驱动)](#函数式编程方法输入输出驱动)
+        - [第一条建议:](#第一条建议)
+        - [第三条建议](#第三条建议)
+            - [拓展延伸(lisp部分)](#拓展延伸lisp部分)
+        - [<2020-09-20 09:17> 增量阅读](#2020-09-20-0917-增量阅读)
+            - [newHasPt新用法?](#newhaspt新用法)
+            - [Subst?](#subst)
+            - [PiemanM](#piemanm)
+
+<!-- markdown-toc end -->
 
 ## 对象和行为
 
@@ -62,13 +111,13 @@ Object是FishD,Int等所有类的父类，最原始类
 
 **数据或者参数序列去找函数!!!**
 
-1. 行为是否有效？方便?
+1. 行为是否有效？方便?(行为管理也包括两个层次，一个是为，另外一个是有所作为，有成效! 行之有效，方为管理)
 2. 行为是否有益？
 3. 行为是否可持续?
 4. 行为是否可改善?
 
-
 ![behaviors][12]
+
 ### 研究出发点
 
 - pizza-pie(注意pizza结合pie使用top和bot的方式)
@@ -91,8 +140,8 @@ Object是FishD,Int等所有类的父类，最原始类
     - accept接收访问者，并立即反向调取核心功能(instantly)，这也是点号和函数调用的意思
       new立即调用构造函数，并递归调用accept的相关方法
     - why do we need to know the meaning of the ...? what is the value of ...?
-- how do we determine the answer for ...?  we need to determine one more time which version of function we must use.
-- 函数versions(funct-v1.0.1)
+    - how do we determine the answer for ...?  we need to determine one more time which version of function we must use.
+    - 函数versions(funct-v1.0.1)
 - 出发点4：this，以及可改变的this(new LisSubst(c-1, n,t,r)),this代表所有的visitors;  that 代表所有datatypes
   this 和 that来回变换。
 - 出发点5: We want all the methods in one class.  
@@ -164,6 +213,7 @@ public abstract class PointD {
 
 初始原基(不能吃原基,一般也是递归出口，return ture，不进行recursion)示例(一般在该类中不带有原基)
 初始原基目的帮你认识什么时候程序终止。
+
 ```java
 
 class Crust extends PizzaD{ //面包皮  区分下面的各个料
@@ -187,6 +237,7 @@ PizzaD subAwC() {
 ```
 可以和非初始原基（natural recursion)比较一下,比如Cheese: return newCheese, ，
 非初始原基目的帮你认识递归过程
+
 ```java
 
 class Cheese extends PizzaD{
@@ -234,8 +285,8 @@ PizzaD subAwC() {
 
 好正如上面说的，这种转置变换到此时并没有太多的进步
 
-中间变异原基示例:(原基引入访问者)，而在原基定义的函数也叫作基函数(基本功能、基本功能，在其他访问者接口
-实现具体功能)
+中间变异原基示例:(原基引入访问者)，而在原基定义的函数也叫作基函数
+(基本功能、基本功能，在其他访问者接口实现具体功能)
 
 ```java
 
@@ -460,6 +511,7 @@ public Object forTop(Top that) {
 箭头表示extends
 实现表示implements
 说明： The method accepts a visitor and asks(问本身代表行为需求) for its(their) service(本身带有功能实现)
+and hands over all the objects service needed.
 so we call accept as service!
 we ask(行为) for services(目的)-----被问的对象都得有accept的功能,但问的对象也有比如下文的ReCall项目的Wang and Stranger
 那么区分问与被问等于没说，没说就不写了
@@ -1010,9 +1062,6 @@ design naturally leads to the use of well-known object-oriented design patterns
 2. 连接Connection就是调用注册类，创建实例(用起来)
 3. 实际的工作过程
 
-
-
-
 ### 第一条建议: 
 
         When specifying a collection of data,
@@ -1081,9 +1130,937 @@ terminal element 相当于 0, 1,null?的作用(类似下文的所有初始原基
             (cons new (cons old l)))))
 
 ```
+
 ----------------------------------------------------------------------------------
 
+## <2020-09-20 09:17> 增量阅读
+
+关于the little java的增量阅读
+### newHasPt新用法?
+P161 为什么HasPt 或者UnionHasPt多了一个constructors? newHasPt? 
+     还是有很多不明白？ 
+``` java
+
+```
+
+### Subst?
+P176 subst : no news is good news?
+### PiemanM
+P177 because the PiemanM manages the toppings of p, and nobody else sees p.
+     管理员模式统一管理，接管接口的能力
+
+``` java
+
+interface PiemanI{
+	
+	int addTop(Object t);
+	int remTop(Object t);
+	int substTop(Object n, Object o);
+	int occTop(Object o);
+}
+class PiemanM implements PiemanI{
+
+	PieD p  = new Bot();
+	public PiemanM(PieD _p) {
+		// TODO Auto-generated constructor stub
+		this.p = _p;
+	}
+	@Override
+	public int addTop(Object t) {
+		// TODO Auto-generated method stub
+		p = new Top(t, p);
+		return occTop(t);
+	}
+
+	@Override
+	public int remTop(Object t) {
+		// TODO Auto-generated method stub
+		p = (PieD)p.accept(new RemV(t));
+		return occTop(p);
+	}
+
+	@Override
+	public int substTop(Object n, Object o) {
+		// TODO Auto-generated method stub
+		p =(PieD)p.accept(new SubstV(n,o));
+		return occTop(p);
+	}
+
+	@Override
+	public int occTop(Object o) {
+		// TODO Auto-generated method stub
+		return ((Integer)p.accept(new OccursV(o))).intValue();
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.getClass().getName();
+	}
+
+}
+```
+
+
+### 动态方法
+
+java是接收者[ 动态分配 ][15], 按子类调用对应 被操作对象.accept (行为访问类)，动态分配置换掉某个方法，发生在运行期，而 针对于参数则是使用静态方式【发生在编译期】，也就是使用父类方式
+``` java
+With DataType_oLlnterface y = new _, create the object y with which you wish to experiment.
+```
+
+### 什么是value?
+
+1. Type is a name for a collection of values(Type is a set!)(类型是一种值的集合，范畴类 , 也叫作datatype, 由data组成的type)
+2. value can be int or boolean(basic type) and also extended class(high type)(值包含基础类型primitive type 和高级类型closure type or non-basic type，都是第一公民)
+3. New uses the constructor functors to construct a instance of one type(使用构造函数创建一个类实例)
+4. everything created with `new` is an `Object`, the class of all objects. but 5 is not, because 5 is primitive type,
+can not be newed. 5并不是Object!!! <2020-09-20 22:16> , `new Integer(5)` is an object, which means that Integer creates an
+object from an int 5. The similar is `new Boolean(false)` 
+
+
+### what is zero?
+
+0 is not the same as new Zero(), because new Zero() is NumD , but 0 is not!
+
+``` java
+new OneMoreThan(
+    new OneMoreThan(
+        new OneMoreThan(
+            new OneMoreThan(
+                new Zero()))))
+```
+Are there more NumDs than booleans?  lots!
+Are there more NumDs than ints?  No, Java limits the number of ints to approximately 2^32
+
+Zero相当于NumD的作用类似于Holder() 烤架、Skewer()、Crust() Bot(), Skewer()相对于ShishD 都是最基本的初级类！在此基础上，构造成整个生态类，
+他处于金字塔底层，确至关重要！
+
+```java
+abstract class PointD{
+}
+
+class CartesianPt extends PointD{
+    int  x;
+    int  y;
+    CartesianPt(int _x, int  _y){
+        x= _x;
+        y= _y;
+    }
+}
+
+class ManhanttanPt extends PointD{
+    int  x;
+    int  y;
+    ManhanttanPt(int _x, int  _y){
+        x= _x;
+        y= _y;
+    }
+}
+
+```
+在代码中建议到constructors结束的位置使用`\\---------------------------`
+
+
+
+## 五层架构
+
+1. 项目(包含很多包)
+2. 包(非public类相互访问)或者模块("包"包含类、接口、抽象)
+3. 类(定制类、内置类)、接口、抽象类(类直接包含函数和字段， 统一为类字段)
+4. 函数(comsume参数)、类字段 ---> 统一为类字段(函数类似字段, 函数式第一公民)
+5. 函数参数(类名字+字段名字)
+
+
+分层架构也体现在职能公司的划分，先得有一个dataype!同类相聚！然后由此衍生出很多其他子类，
+如果不站在这个高度很多情况我们只能从底面开始思考，而不能从上往下思考！
+
+我们的思维习惯是从一堆乱七八糟的事物中理出分层架构，而为什么我们不能从空中直接思考，并逐渐落地？！
+The-little-java也是想告诉你这个特点，从datatype(abstract、interface)思考整个生态链架构。 
+2020-10-02 有用！
+
+
+
 ---------------------------------------------------------------------------------
+
+## 附录
+
+### PointD?
+
+
+``` java
+  abstract class PointD{
+      int  x;
+      int  y;
+      PointD(int _x, int  _y){
+          x= _x;
+          y= _y;
+      }
+      //----------------------------------
+      boolean closerToO(PointD p){
+          retrun distanceToO <= p.distanceToO();
+      }
+      abstract int distanceToO();
+  }
+
+  class CartesianPt extends PointD{
+      CartesianPt(int _x, int _y){
+          super(_x, _y);
+      }
+      //---------------------------------
+      int distanceToO(){
+          return sqrt(exp(x,2)+exp(y,2));
+      }
+  }
+
+  class ManhanttanPt extends PointD{
+      ManhanttanPt(int _x, int  _y){
+          super(_x, _y);
+      }
+      //---------------------------------
+      int distnceToO(){
+          return x+y;
+      }
+  }
+
+```
+
+### Zero  VS OneMoreThan
+
+``` java
+   abstract class NumD{}
+
+   class Zero extends NumD{}
+
+   class OneMoreThan extends NumD{
+  NumD predeccessor;
+  OneMoreThan(NumD _p){
+     predeccessor = _p;
+    }
+  //-----------------------------------------
+  }
+```
+
+### Base vs Slice
+
+
+``` java
+  abstract class LayerD{}
+
+  class Base extends layerD{
+      object o;
+      Base(object _o){
+          o = _o;
+      }
+  //--------------------------------
+  }
+
+  class Slice extends layerD{
+      LayerD l;
+      Slice(LayerD _l){
+          l = _l;
+      }
+  //---------------------------------
+  }
+```
+
+### Skewer Vs [Onion , Lamb , Tomato]
+
+``` java
+  abstract class ShishD{
+      abstract boolean onlyOnions(); //-----------所有继承类都得实现了
+      abstract boolean isVegetarian();
+
+  }
+
+  class Skewer extends ShishD{
+      boolean onlyOnions(){
+          return true;
+      }
+      boolean isVegetarian(){
+          return true;
+      }
+
+  }
+
+  class Onion extends ShishD{
+      ShishD s;
+      Onion(ShishD _s){
+          s= _s;
+      }
+      //--------------------------------
+
+      boolean onlyOnions(){
+          return s.onlyOnions();
+      }
+      boolean isVegetarian(){
+          return s.isVegetarian();
+      }
+
+  }
+
+  class Lamb extends ShishD{
+      ShishD s;
+      Lamb(ShishD _s){
+          s= _s;
+      }
+      //--------------------------------
+
+      boolean onlyOnions(){
+          return false;
+      }
+      boolean isVegetarian(){
+          return false;
+      }
+  }
+
+  class Tomato extends ShishD{
+      ShishD s;
+      Tomato(ShishD _s){
+          s= _s;
+      }
+      //--------------------------------
+      boolean onlyOnions(){
+          return false;
+      }
+      boolean isVegetarian(){
+          return s.isVegetarian();
+      }
+  }
+```
+
+### Holder vs [Shallot , Shrim, Radish]
+
+
+``` java
+  abstract class KebabD{
+      abstract boolean isVeggie();
+      abstract Object whatHolder(); // ----Object 代表是Zero的地方 可以任何事物
+  }
+
+  class Holder extends KebabD{
+      Object o;
+      Holder(Object _o){
+          o = _o;
+      }
+
+      // -------------------------
+
+      abstract boolean isVeggie(){
+          return true;
+      }
+      abstract Object whatHolder(){
+          return o;
+      }
+  }
+
+  class Shallot extends KebabD{
+      KebabD k;
+      Shallot(KebabD _k){
+          k = _k;
+      }
+
+      // -------------------------
+
+      abstract boolean isVeggie(){
+          return k.isVeggie();
+      }
+      abstract Object whatHolder(){
+          return k.whatHolder();
+      }
+  }
+
+
+  class Shrimp extends KebabD{
+      KebabD k;
+      Shrimp(KebabD _k){
+          k = _k;
+      }
+
+      // -------------------------
+
+      abstract boolean isVeggie(){
+          return false;
+      }
+      abstract Object whatHolder(){
+          return k.whatHolder();
+      }
+  }
+
+  class Radish extends KebabD{
+      KebabD k;
+      Radish(KebabD _k){
+          k = _k;
+      }
+
+      // -------------------------
+
+      abstract boolean isVeggie(){
+          return k.isVeggie();
+      }
+      abstract Object whatHolder(){
+          return k.whatHolder();
+      }
+  }
+  // Pepper  Zucchini etc!
+  class Pepper extends KebabD{
+      KebabD k;
+      Pepper(KebabD _k){
+          k = _k;
+      }
+
+      // -------------------------
+
+      abstract boolean isVeggie(){
+          return k.isVeggie();
+      }
+      abstract Object whatHolder(){
+          return k.whatHolder();
+      }
+  }
+```
+
+###* Rod ---> Dagger Sabre Sword
+
+
+``` java
+  abstract class RodD{}
+
+  class Dagger extends RodD{}
+  class Sabre extends RodD{}
+  class Sword extends RodD{}
+```
+
+###* Plate--> Gold Silver Brass Copper Wood
+
+
+``` java
+  abstract class PlateD{}
+
+  class Gold extends PlateD{}
+  class Silver extends PlateD{}
+  class Brass extends PlateD{}
+  class Copper extends PlateD{}
+  class Woood extends PlateD{}
+```
+
+### Crust vs [Cheese Olive Anchovy Sausage]
+
+
+``` java
+  abstract class PizzaD{
+      abstract PizzaD remA();
+      abstract PizzaD topAwC();
+      abstract PizzaD subAbC(); //----Anchovy使用Cheese替换
+  }
+
+  class Crust extends PizzaD{
+      //------------------------
+      PizzaD remA(){
+          return new Crust();
+      }
+
+      PizzaD topAwC(){
+          return new Crust();
+      }
+
+      PizzaD subAbC(){
+          return new Crust();
+      }
+  }
+
+
+  class Cheese extends PizzaD{
+      PizzaD p;
+      Cheese(PizzaD _p){
+          p = _p;
+      }
+      //------------------------
+      PizzaD remA(){
+          return new Cheese(p.remA());
+      }
+      PizzaD topAwC(){
+          return new Cheese(p.topAwC());
+      }
+
+      PizzaD subAbC(){
+          return new Cheese(p.subAbC());
+      }
+  }
+
+
+  class Olive extends PizzaD{
+      PizzaD p;
+      Olive(PizzaD _p){
+          p = _p;
+      }
+      //------------------------
+
+      PizzaD remA(){
+          return new Olive(p.remA());
+      }
+
+      PizzaD topAwC(){
+          return new Olive(p.topAwC());
+      }
+
+      PizzaD subAbC(){
+          return new Olive(p.subAbC());
+      }
+  }
+  class Anchovy extends PizzaD{
+      PizzaD p;
+      Anchovy(PizzaD _p){
+          p = _p;
+      }
+      //------------------------
+
+      PizzaD remA(){
+          //----------the difference
+          return p.remA();
+      }
+
+      PizzaD topAwC(){
+          return new Sausage(
+                             new Anchovy(
+                                         p.topAwC()));
+      }
+
+
+      PizzaD subAbC(){
+          return new Cheese(p.subAbC());
+      }
+  }
+
+  //-----还比如Spinach 类似于Sausage
+  class Sausage extends PizzaD{
+      PizzaD p;
+      Sausage(PizzaD _p){
+          p = _p;
+      }
+      //------------------------
+      PizzaD remA(){
+          return new Sausage(p.remA());
+      }
+      PizzaD topAwC(){
+          return new Sausage(p.topAwC());
+      }
+
+      PizzaD subAbC(){
+          return new Sausage(p.subAbC());
+      }
+  }
+```
+
+
+### ShishD的进化
+
+
+The protocol is always the same and boring(单调和无聊即为协议)
+
+``` java
+
+  abstract class ShishD{
+      abstract boolean onlyOnions(); //-----------所有继承类都得实现了
+      abstract boolean isVegetarian();
+
+  }
+
+  abstract class ShishD{
+      OnlyOnionsV ooFn = new OnlyOnionsV();
+      IsVegetarianV ivFn = new IsVegetarianV();
+      abstract boolean onlyOnions(); //-----------所有继承类都得实现了
+      // ---- ooFn.forSkewer() ooFn.forOnion(s),  ooFn.forLamb(s); ooFn.forTomato(s) 都出自OnlyOnionsV类
+      abstract boolean isVegetarian();
+      // ---- ivFn.forSkewer() ivFn.forOnion(s),  ivFn.forLamb(s); ivFn.forTomato(s) 都出自IsVegetarianV类
+  }
+
+  class IsVegetarianV{
+      boolean forSkewer(){
+          return true;
+      }
+      boolean forOnion(ShishD s){
+          return s.isVegetarian();
+      }
+      boolean forLamb(ShishD s){
+          return false;
+      }
+
+      boolean forTomato(ShishD s){
+          return s.isVegetarian();
+      }
+  }
+```
+
+PizzaD的类更多，让我们从更多的无聊和重复体味接口
+
+
+``` java
+
+  abstract class PizzaD{
+      RemAv remFn = new RemAv();
+      TopAwCv topFn = new TopAwCv();
+      SubAbCv subFn = new SubAbCv();
+      abstract PizzaD remA();
+      abstract PizzaD topAwC();
+      abstract PizzaD subAbC(); //----Anchovy使用Cheese替换
+  }
+
+  class Crust extends PizzaD{
+      //------------------------
+      PizzaD remA(){
+          // return new Crust();
+          return remFn.forCrust();
+      }
+
+      PizzaD topAwC(){
+          // return new Crust();
+          return topFn.forCrust();
+      }
+
+      PizzaD subAbC(){
+          // return new Crust();
+          return topFn.forCrust();
+      }
+  }
+
+
+  class Cheese extends PizzaD{
+      PizzaD p;
+      Cheese(PizzaD _p){
+          p = _p;
+      }
+      //------------------------
+      PizzaD remA(){
+          // return new Cheese(p.remA());
+          return remFn.forCheese(p);
+      }
+      PizzaD topAwC(){
+          // return new Cheese(p.topAwC());
+          return topFn.forCheese(p);
+      }
+
+      PizzaD subAbC(){
+          // return new Cheese(p.subAbC());
+          return subFn.forCheese(p);
+      }
+  }
+
+
+  class Olive extends PizzaD{
+      PizzaD p;
+      Olive(PizzaD _p){
+          p = _p;
+      }
+      //------------------------
+
+      PizzaD remA(){
+          // return new Olive(p.remA());
+          return remFn.forOlive(p);
+      }
+
+      PizzaD topAwC(){
+          // return new Olive(p.topAwC());
+          return topFn.forOlive(p);
+      }
+
+      PizzaD subAbC(){
+          // return new Olive(p.subAbC());
+          return subFn.forOlive(p);
+      }
+  }
+  class Anchovy extends PizzaD{
+      PizzaD p;
+      Anchovy(PizzaD _p){
+          p = _p;
+      }
+      //------------------------
+
+      PizzaD remA(){
+          //----------the difference
+          // return p.remA();
+          return remFn.forArchovy(p);
+      }
+
+      PizzaD topAwC(){
+          //////////////////////////////////////////////////
+          // return new Sausage(                          //
+          //                    new Anchovy(              //
+          //                                p.topAwC())); //
+          //////////////////////////////////////////////////
+          return topFn.forArchovy(p);
+      }
+
+
+      PizzaD subAbC(){
+          // return new Cheese(p.subAbC());
+          return subFn.forAnchovy(p);
+      }
+  }
+
+  //-----还比如Spinach 类似于Sausage
+  class Sausage extends PizzaD{
+      PizzaD p;
+      Sausage(PizzaD _p){
+          p = _p;
+      }
+      //------------------------
+      PizzaD remA(){
+          // return new Sausage(p.remA());
+          return remFn.forSausage(p);
+      }
+      PizzaD topAwC(){
+          // return new Sausage(p.topAwC());
+          return topFn.forSausage(p);
+      }
+
+      PizzaD subAbC(){
+          // return new Sausage(p.subAbC());
+          return subFn.forSausage(p);
+      }
+  }
+
+```
+
+从上面可以推断，所有的类中的操作都是类似(subFn.forCrust(p))，完全可以整合成一种风格的编写，
+比如Interface！！！
+再来看看我们的抽象行为类
+
+
+``` java
+  class RemAv{
+      PizzaD forCrust(){
+          return new Crust();
+      }
+
+      PizzaD forCheese(PizzaD p){
+          return new Cheese(p.remA());
+      }
+
+      PizzaD forOlive(PizzaD p){
+          return new Olive(p.remA());
+      }
+
+      PizzaD forAnchovy(PizzaD p){
+          return p.remA();
+      }
+
+      PizzaD forSausage(PizzaD p){
+          return new Sausage(p.remA());
+      }
+  }
+
+  class TopAwCv{
+
+      PizzaD forCrust(){
+          return new Crust();
+      }
+
+      PizzaD forCheese(PizzaD p){
+          return new Cheese(p.topAwC());
+      }
+
+      PizzaD forOlive(PizzaD p){
+          return new Olive(p.topAwC());
+      }
+
+      PizzaD forAnchovy(PizzaD p){
+          return new Cheese(new Anchovy(p.topAwC())) ;
+      }
+
+      PizzaD forSausage(PizzaD p){
+          return new Sausage(p.topAwC());
+      }
+  }
+
+  class SubAbCv{
+
+      PizzaD forCrust(){
+          return new Crust();
+      }
+
+      PizzaD forCheese(PizzaD p){
+          return new Cheese(p.subAbC());
+      }
+
+      PizzaD forOlive(PizzaD p){
+          return new Olive(p.subAbC());
+      }
+
+      PizzaD forAnchovy(PizzaD p){
+          return new Cheese(p.subAbC()) ;
+      }
+
+      PizzaD forSausage(PizzaD p){
+          return new Sausage(p.subAbC());
+      }
+  }
+```
+
+可以看到所有行为类都是类似的，没问题可以划分同类项！
+
+
+我们看到那么多的RemV remFn, SubstV subStFn, 于是可以把他们移进对应抽象函数
+我们不妨用PieD做试验
+
+### Bot Vs Top
+
+
+``` java
+  abstract class PieD{
+      //////////////////////////////////////////////
+      // RemV remFn = new RemV();                 //
+      // SubstV substFn = new SubstV();           //
+      // //---------------                        //
+      // abstract PieD rem(Object o);             //
+      // abstract PieD subst(Object n, Object o); //
+      //////////////////////////////////////////////
+
+      abstract PieD rem(RemV remFn,Object o);
+      abstract PieD subst(SubstV substFn, Object n, Object o);
+  }
+
+  class Bot extends PieD{
+      //----------------
+      // PieD rem(Object o){
+      PieD rem(RemV remFn,Object o){
+          return remFn.forBot(o);
+      }
+      // PieD subst(Object n, Object o){
+      PieD subst(SubstV substFn, Object n, Object o){
+          return substFn.forBot(n, o);
+      }
+  }
+
+  class Top extends PieD{
+      Object t;
+      PieD r;
+      Top(Object _t , PieD _r){
+          t = _t;
+          r = _r;
+      }
+      //---------------------
+
+      PieD rem(Object o){
+          return remFn.forTop(t,r,o);
+      }
+      PieD subst(Object n, Object o){
+          return substFn.forTop(t, r,n, o);
+      }
+  }
+```
+
+### 伟大的interface出现了
+
+
+
+``` java
+    interface PieVisitorI{
+        PieD forBot();
+        PieD forTop(Object t, PieD r);
+    }
+
+    class RemV implements PieVisitorI{
+        Object o;
+        RemV(Object _o){
+            o = _o;
+        }
+        //----------------------------
+        public PieD forBot(){
+        
+            return new Bot();
+        }
+        public PieD forTop(Object t, PieD r){
+             if(o.equals(t)){
+                 return r.accept(this);
+             }else{
+                 return new Top(t,r.accept(this));
+             }
+        }
+    }
+
+    class SubstV implements PieVistorI{
+        Object n;
+        Object o;
+        //-------------Closure
+        // 如果出现_o 用_n来代替
+        SubstV(Object _n, Object _o){
+            n = _n;
+            o = _o;
+        }
+
+        //---------------------------------
+        public PieD forBot(){
+            return new BOt();
+        }
+
+        public PieD forTop(Object t, PieD r){
+            if(o.equals(t)){
+                return new Top(n, r.accept(this));
+            }else{
+                return new Top(t, r.accept(this));
+            }
+        }
+    }
+  //----有限次删除
+    class LtdSubstV implements PieVistorI{
+        int c;
+        Object n;
+        Object o;
+        //-------------Closure
+        // 如果出现_o 用_n来代替
+        LtdSubstV(int _c,Object _n, Object _o){
+            c = _c;
+            n = _n;
+            o = _o;
+        }
+
+        //---------------------------------
+        public PieD forBot(){
+            return new BOt();
+        }
+
+        public PieD forTop(Object t, PieD r){
+            if( 0 == c){
+                return new Top(t, r);
+            }
+            if(o.equals(t)){
+                return new Top(n, r.accept(new LtdSubstV(c-1,n ,o)));
+            }else{
+                return new Top(t, r.accept(this)); // this保持不变， 存在this变化的情况，有趣，有趣，有趣
+                    }
+        }
+    }
+    abstract class PieD{
+        //---------------伟大的accept出现了
+        abstract PieD accept(PieVisitorI ask);
+    }
+
+    class Bot extends PieD{
+        PieD accept(PieVisitorI ask){
+            ask.forBot();
+        }
+    }
+
+    class Top extends PieD{
+        Object t;
+        PieD r;
+        Top(Object _t, PieD _r){
+            t = _t;
+            r = _r;
+        }
+        //------------------------------
+        PieD accetp(PieVisitorI ask){
+            return ask.forTop(t,r);
+        }
+    }
+```
+
+注意看行为类带参数的Closure出现了，且如果行为类参数发生变化，还得慎用this，因为
+this指代当前类带参数！原来LtdSubstV这么有趣
+
+--------------------------------------------------------------
+
 
 [1]: https://a-little-java-a-few-patterns.readthedocs.io/zh_CN/latest/
 [2]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/image/eval-apply.png
@@ -1099,3 +2076,4 @@ terminal element 相当于 0, 1,null?的作用(类似下文的所有初始原基
 [12]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/image/behaviors.png
 [13]:https://www.youtube.com/watch?v=13cmHf_kt-Q&index=26&list=PLZdCLR02grLp__wRg5OTavVj4wefg69hM 
 [14]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/image/Acceptor.png
+[15]: https://github.com/jueqingsizhe66/DesignPattern
