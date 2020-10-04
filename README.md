@@ -11,15 +11,24 @@ Introspect 和 retrospect具有类似的地方(review ,look back on, backcall)
 
 ![design][4]
 
-根据本文的学习，应该反复问自己两个问题， 每个类都有0和1的概念！
-- 0是什么? 0是Zero? "Zero"类可以没有field也可以有Object field(比如Holder的Object字段，Skewer没有字段)
+----------------------------------------------------------------
+
+根据本文的学习，应该反复问自己两个问题，每个类都有0和1的概念！
+- 0是什么? 0是Zero? "Zero"类可以没有field也可以有Object field(比如Holder的Object字段，Skewer没有字段)。
+  0是产业链，解决技术产品快速落地问题。
 - 1是什么? 1是One? "One"类的field一般都是对应datatype，比如Olive的PizzaD字段。
+  1是生态链，解决的是技术的建设、优化设计，形成大规模的生态产业圈，打造上层建筑。
 
-0和1不是小问题,
-- 0解决递归终点(什么时候结束)，落地的事情
-- 1解决递归过程(怎么结束),迭代优化的事情
-- 后来琢磨发现，0和1的不同其实也体现在构造器，1的构造器肯定有字段，0的构造器大部分是无参构造器
 
+0和1不是小问题:
+- 0解决递归终点(什么时候结束)，落地的事情。
+- 1解决递归过程(怎么结束)，迭代优化的事情。
+
+后来琢磨发现，0和1的不同其实也体现在构造器(而这个构造器在newHasPt又有点用途)，1的构造器肯定有字段，
+0的构造器大部分是无参构造器
+
+
+----------------------------------------------------------------
 ## 目录
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
@@ -78,10 +87,14 @@ Introspect 和 retrospect具有类似的地方(review ,look back on, backcall)
         - [Base vs Slice](#base-vs-slice)
         - [Skewer Vs [Onion , Lamb , Tomato]](#skewer-vs-onion--lamb--tomato)
         - [Holder vs [Shallot , Shrim, Radish]](#holder-vs-shallot--shrim-radish)
+        - [Rod ---> Dagger Sabre Sword](#rod-----dagger-sabre-sword)
+        - [Plate--> Gold Silver Brass Copper Wood](#plate---gold-silver-brass-copper-wood)
         - [Crust vs [Cheese Olive Anchovy Sausage]](#crust-vs-cheese-olive-anchovy-sausage)
         - [ShishD的进化](#shishd的进化)
         - [Bot Vs Top](#bot-vs-top)
         - [伟大的interface出现了](#伟大的interface出现了)
+        - [Bud vs [Flat Split]](#bud-vs-flat-split)
+    - [两个有趣的点](#两个有趣的点)
 
 <!-- markdown-toc end -->
 
@@ -147,7 +160,7 @@ Object是FishD,Int等所有类的父类，最原始类
 - "Think first, experiment later"
 - 出发点1: 防止overhelming的信息
   - But we don't know of a better way to organize these definitions yet. 
-       Wasn't this last collection overwhelming?
+        Wasn't this last collection overwhelming?
         Because it becomes more and more difficult
         to understand the rationale for each of the
         methods in a variant and what the
@@ -158,7 +171,7 @@ Object是FishD,Int等所有类的父类，最原始类
         create a PointP with the appropriate fields, and the respective constructor guarantees
         that the point becomes a CartesianPt or a ManhattanPt.
 - 出发点3: characterizing everything for the PointD?
-        Do we now have everything that characterizes PointPs in the datatype?
+    - Do we now have everything that characterizes PointPs in the datatype?
     - Default constructors never consume values, and, when used with new , always create objects without fields. 
     - accept接收访问者，并立即反向调取核心功能(instantly)，这也是点号和函数调用的意思
       new立即调用构造函数，并递归调用accept的相关方法
@@ -189,7 +202,8 @@ Object是FishD,Int等所有类的父类，最原始类
     the for Top service from substFn and hands
     over the field values and the two Objects it
     consumes.
-    ---结果： That's right. Nothing else changes in the variants. Instead of relying on fields of the datatype, we use what is consumed.
+    ---结果： That's right. Nothing else changes in the variants. Instead of relying on fields of the datatype, 
+    we use what is   consumed.
     We still have some work to do. 
     Consuming an extra value here also affects how the methods rem and subst are used.
 
@@ -497,9 +511,11 @@ new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801T
 new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801That.Top(300, new ch0801That.Top(13, new ch0801That.Top(3, new ch0801That.Bot))))))
 new ch0801That.Top(300, new ch0801That.Top(5, new ch0801That.Top(10, new ch0801That.Top(300, new ch0801That.Top(13, new ch0801That.Top(300, new ch0801That.Bot))))))
 ```
+
 ### PiemanM的作用
 
 只不过是为了测试方便，在初始原基的基础上可以不断add,rem等基本函数特性。
+PieManM的作用不改变具体的事情，他只是改变了如何做事情(他是one, 而不是zero，他是生态链而不是产业链)
 
 
 ### 第6步 修改实例属性，return that
