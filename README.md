@@ -11,6 +11,15 @@ Introspect 和 retrospect具有类似的地方(review ,look back on, backcall)
 
 ![design][4]
 
+根据本文的学习，应该反复问自己两个问题， 每个类都有0和1的概念！
+- 0是什么? 0是Zero? "Zero"类可以没有field也可以有Object field(比如Holder的Object字段，Skewer没有字段)
+- 1是什么? 1是One? "One"类的field一般都是对应datatype，比如Olive的PizzaD字段。
+
+0和1不是小问题,
+- 0解决递归终点(什么时候结束)，落地的事情
+- 1解决递归过程(怎么结束),迭代优化的事情
+- 后来琢磨发现，0和1的不同其实也体现在构造器，1的构造器肯定有字段，0的构造器大部分是无参构造器
+
 ## 目录
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
@@ -1072,6 +1081,7 @@ YeRestaurant引入hutool
 the functional (input-output driven) method of program
 design naturally leads to the use of well-known object-oriented design patterns
 
+
 1. 驱动Driver其实就是注册类,放入可调用、可追踪范围内(势力范围内，招进来)
 2. 连接Connection就是调用注册类，创建实例(用起来)
 3. 实际的工作过程
@@ -1534,7 +1544,7 @@ The-little-java也是想告诉你这个特点，从datatype(abstract、interface
   }
 ```
 
-###* Rod ---> Dagger Sabre Sword
+### Rod ---> Dagger Sabre Sword
 
 
 ``` java
@@ -1545,7 +1555,7 @@ The-little-java也是想告诉你这个特点，从datatype(abstract、interface
   class Sword extends RodD{}
 ```
 
-###* Plate--> Gold Silver Brass Copper Wood
+### Plate--> Gold Silver Brass Copper Wood
 
 
 ``` java
@@ -2071,7 +2081,7 @@ PizzaD的类更多，让我们从更多的无聊和重复体味接口
 ```
 
 注意看行为类带参数的Closure出现了，且如果行为类参数发生变化，还得慎用this，因为
-this指代当前类带参数！原来LtdSubstV这么有趣
+this指代当前类带参数！原来LtdSubstV这么有趣, 重新构造this！
 
 ### Bud vs [Flat Split]
 
@@ -2242,6 +2252,194 @@ this指代当前类带参数！原来LtdSubstV这么有趣
       }
   }
   
+```
+## 两个有趣的点
+
+1. UnionVisitorI直接继承ShapeVisitorI，体味接口多继承作用
+2. newHasPt风格的Constructor-like methods,让接口拓展更加好用！
+
+
+```java
+abstract class ShapeD{
+    abstract boolean accept(ShapeVisitorI ask);
+}
+
+class Circle extends ShapeD{
+    //----默认为原点
+    int r;
+    Circle(int _r){
+        r = _r;
+    }
+    //-----------------------------------------
+    boolean accept(ShapeVisitorI ask){
+        ask.forCircle(r);
+    }
+}
+
+
+class Square extends ShapeD{
+    //----默认为原点
+    int s;
+    Circle(int _s){
+        s = _s;
+    }
+    //-----------------------------------------
+    boolean accept(ShapeVisitorI ask){
+        ask.forSquare(s);
+    }
+}
+
+
+class Trans extends ShapeD{
+    //---Trans has a better name Translation平移
+    PointD q;
+    ShapeD s;
+    Trans(PointD _q , ShapeD _s){
+        q = _q;
+        s = _s;
+    }
+    //-----------------------------------------
+    boolean accept(ShapeVisitorI ask){
+        ask.forTrans(q,s);
+    }
+}
+
+class Union extends ShapeD{
+    ShapeD s;
+    ShapeD t;
+    Union(ShapeD _s, ShapeD _t){
+        s = _s;
+        t = _t;
+    }
+    //----------------------------------------
+    boolean accept(ShapeVisitorI ask){
+        // return true;
+        // 关键所在 UnionVisitorI is also a Varient of ShapeVisitorI
+        // 因为我们知道ask就是UnionVisitorI ，所以做了一次强转！！
+        return ((UnionVisitorI)ask).forUnion(s,t);
+    }
+}
+
+interface ShapeVisitorI{
+    boolean forCircle(int r);
+    boolean forSquare(int s);
+    boolean forTrans(PointD q, ShapeD s);
+}
+//---------------很有趣，我们不是直接在ShapeVisitorI直接
+//---------------添加函数，而是创建一个新接口(新街口)，因为接口可以多继承
+//---------------Because UnionVisitorI extends ShapeVisitorI, it is
+//---------------Also a ShapeVisitorI!
+//---------------看了5遍，第一次明白接口继承！
+interface UnionVisitorI extends ShapeVisitorI{
+    boolean forUnion(ShapeD s, ShapeD t);
+}
+
+class HasPtV implements ShapeVisitorI{
+    PointD p;
+    HasPtV(PointD _p){
+        p = _p;
+    }
+    //不明白为什么需要newHasPt构造函数 以及第九条建议
+    // Constructor-like methods
+    // 看着没什么作用，是因为没有从全局的角度进行思考
+    ShapeVisitorI newHasPt(PointD p){
+        return new HasPtV(p);// 他的作用和构造函数基本上一模一样
+        // 之所以写上这个新的构造函数是为了到时候基于HasPtV可以拓展
+        // 且看UnionHasPtV
+    }
+    //所以第九条建议提到 If a dataype may have to be extended(datatype指的
+    //就是HasPtV, be forward looking and use a constructor-like(Override) method
+    // so that visitors can be extended too.
+    //---------------------------------------
+    //--public
+    public boolean forCircle(int r){
+        return p.distranceToO() <= r;
+    }
+    //--public
+    public boolean forSquare(int s){
+        if(p.x <= s){
+            return (p.y<=s);
+        }else{
+            return false;
+        }
+    }
+    //--public
+    public boolean forTrans(PointD q, ShapeD s){
+        // return s.accept( new HasPtV(p.minus(q)));
+        return s.accept( new newHasPtV(p.minus(q)));
+    }
+}
+
+
+//----同样我们需要定义UnionHasPtV
+//----implement UnionVisitorI 也得加上去， 因为HasPtV没有 UnionVisitorI的附加forUnion函数
+class UnionHasPtV extends HasPtV implement UnionVisitorI{
+    UnionHasPtV(PointD _p){
+        super(_p);
+    }
+
+    ShapeVisitorI newHasPt(PointD p){
+        return  new UnionHasPtV(p);
+    }// 其他地方都不用修改，因为HasPtV的forTrans已经使用了，只要OnUnionHasPtV调用newHasPt，那么
+    // 就调用new UnionHasPtV(p), forTrans就可以拓展到所有子类了
+
+    //-------------------------------------
+    //--public
+    public boolean forUnion(ShapeD s, ShapeD t){
+        if(s.accept(this)){
+            return true;
+        }else{
+            return t.accept(this);
+        }
+    }
+}
+
+abstract class PointD{
+    int x;
+    int y;
+    PointD(int _x, int _y){
+        x = _x;
+        y = _y;
+    }
+    //-------------------------------------------
+    boolean closerToO(PointD p){
+        return distanceToO <= p.distanceToO();
+    }
+    PointD minus(PointD p){
+        return new Cartesian(x -p.x, y - p.y);
+    }
+
+    int moveBy(int DeltaX, int DeltaY){
+        x= x+ deltaX;
+        y= y+ deltaY;
+
+        return distanceToO();
+
+    }
+    abstract int distanceToO();
+}
+
+class CartesianPt extends PointD{
+    CartesianPt(int _x, int _y){
+        super(_x, _y);
+    }
+
+    int distanceToO(){
+        return sqrt(exp(x,2)+ exp(y,2));
+    }
+}
+
+
+class ManhanttanPt extends PointD{
+    ManhanttanPt(int _x, int _y){
+        super(_x, _y);
+    }
+
+    int distanceToO(){
+        return x+y;
+    }
+}
+
 ```
 
 
