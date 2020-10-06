@@ -19,6 +19,8 @@ Introspect 和 retrospect具有类似的地方(review ,look back on, backcall)
 - 1是什么? 1是One? "One"类的field一般都是对应datatype，比如Olive的PizzaD字段。
   1是生态链，解决的是技术的建设、优化设计，形成大规模的生态产业圈，打造上层建筑。
 
+0 vs 1 is similar to "from vs to", which can be joined together "from 0 to 1", actually means
+nodes and edges, or commits picture in the history of git push.(form 1 to 3 or more)
 
 0和1不是小问题:
 - 0解决递归终点(什么时候结束)，落地的事情。
