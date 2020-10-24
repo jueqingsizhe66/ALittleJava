@@ -160,6 +160,8 @@ Object是FishD,Int等所有类的父类，最原始类
 
 - pizza-pie(注意pizza结合pie使用top和bot的方式)
 - "Think first, experiment later"
+- 
+- 
 - 出发点1: 防止overhelming的信息
   - But we don't know of a better way to organize these definitions yet. 
         Wasn't this last collection overwhelming?
@@ -1178,6 +1180,7 @@ terminal element 相当于 0, 1,null?的作用(类似下文的所有初始原基
 ## <2020-09-20 09:17> 增量阅读
 
 关于the little java的增量阅读
+
 ### newHasPt新用法?
 P161 为什么HasPt 或者UnionHasPt多了一个constructors? newHasPt? 
      还是有很多不明白？ 
@@ -1187,6 +1190,7 @@ P161 为什么HasPt 或者UnionHasPt多了一个constructors? newHasPt?
 
 ### Subst?
 P176 subst : no news is good news?
+
 ### PiemanM
 P177 because the PiemanM manages the toppings of p, and nobody else sees p.
      管理员模式统一管理，接管接口的能力
@@ -1200,6 +1204,7 @@ interface PiemanI{
 	int substTop(Object n, Object o);
 	int occTop(Object o);
 }
+
 class PiemanM implements PiemanI{
 
 	PieD p  = new Bot();
@@ -1247,6 +1252,7 @@ class PiemanM implements PiemanI{
 ### 动态方法
 
 java是接收者[ 动态分配 ][15], 按子类调用对应 被操作对象.accept (行为访问类)，动态分配置换掉某个方法，发生在运行期，而 针对于参数则是使用静态方式【发生在编译期】，也就是使用父类方式
+
 ``` java
 With DataType_oLlnterface y = new _, create the object y with which you wish to experiment.
 ```
@@ -1773,7 +1779,7 @@ PizzaD的类更多，让我们从更多的无聊和重复体味接口
           p = _p;
       }
       //------------------------
-      PizzaD remA(){
+      [PizzaD](PizzaD) remA(){
           // return new Cheese(p.remA());
           return remFn.forCheese(p);
       }
@@ -2092,7 +2098,7 @@ PizzaD的类更多，让我们从更多的无聊和重复体味接口
             r = _r;
         }
         //------------------------------
-        PieD accetp(PieVisitorI ask){
+        PieD accept(PieVisitorI ask){
             return ask.forTop(t,r);
         }
     }
@@ -2460,6 +2466,23 @@ class ManhanttanPt extends PointD{
 
 ```
 
+## 正向-反向链
+
+通过accept链逐渐递归所有结构体(通过的具体部分为接口，接口包含着分支结构)
+接口其实就是分支结构。
+
+![accept][16]
+
+通过很重要！通过什么的组合设计，采用什么，运用什么都是接口的部分。
+
+```
+forTop(Top that)
+forBob(Bob that)
+    accept--->ask.forTop(this)
+          --->ask.forBob(this)
+                    ---> that.t
+                    ---> that.r
+```
 
 --------------------------------------------------------------
 
@@ -2476,6 +2499,7 @@ class ManhanttanPt extends PointD{
 [10]:https://www.cnblogs.com/cicaday/p/python-decorator.html 
 [11]:http://www.gigamonkeys.com/book/macros-defining-your-own.html 
 [12]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/image/behaviors.png
-[13]:https://www.youtube.com/watch?v=13cmHf_kt-Q&index=26&list=PLZdCLR02grLp__wRg5OTavVj4wefg69hM 
+[13]: https://www.youtube.com/watch?v=13cmHf_kt-Q&index=26&list=PLZdCLR02grLp__wRg5OTavVj4wefg69hM 
 [14]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/image/Acceptor.png
 [15]: https://github.com/jueqingsizhe66/DesignPattern
+[16]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/image/acceptLinks.jpg 
