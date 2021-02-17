@@ -29,6 +29,15 @@ nodes and edges, or commits picture in the history of git push.(form 1 to 3 or m
 后来琢磨发现，0和1的不同其实也体现在构造器(而这个构造器在newHasPt又有点用途)，1的构造器肯定有字段，
 0的构造器大部分是无参构造器
 
+[orfu][17] 看到*handler*的作用(针对不同情况*handle*不同事情)
+
+orfu-handle-list处理方法容器：
+
+- orfu--handle-link
+- orfu--handle-link-github
+- orfu--handle-link-youtube
+- orfu--handle-current-buffer
+- orfu--handle-project
 
 ----------------------------------------------------------------
 ## 目录
@@ -2591,3 +2600,4 @@ forBob(Bob that)
 [15]: https://github.com/jueqingsizhe66/DesignPattern
 [16]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/image/acceptLinks.jpg 
 [17]:https://www.bilibili.com/video/BV1Ri4y1g71L?p=51 
+[18]:https://github.com/abo-abo/org-fu/blob/master/org-fu.el 
