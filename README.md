@@ -2580,6 +2580,9 @@ forBob(Bob that)
                     ---> that.r
 ```
 
+每个对象都具备accept接受者或者询问者，accept(Visitor), 
+计算机都有accept方法，计算机里头有附属部件，比如cpu、键盘、摄像头等都有相应aceept方法
+
 --------------------------------------------------------------
 
 
@@ -2601,3 +2604,4 @@ forBob(Bob that)
 [16]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/image/acceptLinks.jpg 
 [17]:https://www.bilibili.com/video/BV1Ri4y1g71L?p=51 
 [18]:https://github.com/abo-abo/org-fu/blob/master/org-fu.el 
+[19]:https://www.processon.com/view/600f95a3e401fd0a1f8b60b1?fromnew=1 
