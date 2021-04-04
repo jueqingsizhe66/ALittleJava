@@ -2379,7 +2379,7 @@ this指代当前类带参数！原来LtdSubstV这么有趣, 重新构造this！
 2. newHasPt风格的Constructor-like methods,让接口拓展更加好用！
 
 
-```java
+``` java
 abstract class ShapeD{
     abstract boolean accept(ShapeVisitorI ask);
 }
@@ -2571,7 +2571,7 @@ class ManhanttanPt extends PointD{
 
 通过很重要！通过什么的组合设计，采用什么，运用什么都是接口的部分。
 
-```
+``` java
 forTop(Top that)
 forBob(Bob that)
     accept--->ask.forTop(this)
@@ -2582,6 +2582,160 @@ forBob(Bob that)
 
 每个对象都具备accept接受者或者询问者，accept(Visitor), 
 计算机都有accept方法，计算机里头有附属部件，比如cpu、键盘、摄像头等都有相应aceept方法
+
+### 函数式接口
+jdk1.8后开始引入函数式编程 
+我认为链式编程和函数式接口以及lambda编程说的是一回事，都是函数式编程的意思 
+
+``` java
+@FunctionalInterface
+public interface Function<T,R>
+```
+
+典型消费者类函数式接口forEach(消费者类型函数式接口)
+
+```java
+    default void forEach(Consumer<? super T> action) {
+        Objects.requireNonNull(action);
+        for (T t : this) {
+            action.accept(t);
+        }
+    }
+
+```
+java 四大函数式接口
+
+ * 1. Function(点进去源码)
+ * 2. Predicate
+ * 3. Supplier
+ * 4. Consumer
+ * Functional接口 传入参数T 返回参数R
+
+```java
+public interface Function<T, R> {
+
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param t the function argument
+     * @return the function result
+     */
+    R apply(T t);
+
+
+```
+凡是函数式接口都可以通过lambda表示进行简化写法
+```java
+//        aps.forEach();
+        Function function = new Function<String,String>() {
+            @Override
+            public String apply(String str) {
+                return str;
+            }
+        };
+        System.out.println(function.apply("ads"));
+
+        Function<String,String> function2 = (str)->{
+            return str;
+        };
+        System.out.println(function2.apply("ads2"));
+        
+        Function<String,String> function3 = (String str)->{
+            return str;
+        };
+        System.out.println(function3.apply("ads2"));
+        
+
+```
+
+测试谓词函数式接口
+```java
+    public static void testPredicate(){
+        /**
+         * 测试Predicate函数式接口
+         *
+         @FunctionalInterface
+         public interface Predicate<T> {
+
+          * Evaluates this predicate on the given argument.
+          *
+          * @param t the input argument
+         * @return {@code true} if the input argument matches the predicate,
+         * otherwise {@code false}
+        boolean test(T t);
+
+         */
+        Predicate<String> predicate = new Predicate<String>() {
+            @Override
+            public boolean test(String s) {
+                return s.isEmpty();
+            }
+        };
+        System.out.println(predicate.test("ad"));
+        System.out.println(predicate.test(""));
+    }
+
+    
+    测试Consumer函数式接口
+
+    ``` java
+    /**
+     public interface Consumer<T> {
+
+     * Performs this operation on the given argument.
+     *
+     * @param t the input argument
+    void accept(T t);
+    }
+     只有一个输入类型，返回空类型
+    */
+    public static void testConsumer(){
+        
+        
+        System.out.println("****************测试消费者函数式接口********************");
+        Consumer<String> con = new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                System.out.println("打印字符串:"+s);
+            }
+        };
+        con.accept("hello");
+
+        Consumer<String> con2 = (str)->{
+            System.out.println("打印字符串："+str);
+        };
+        con2.accept("finally");
+
+    }
+    ```
+
+    测试Supplier函数式接口
+    ```java
+    /**
+     * 只返回 不需要输入
+         public interface Supplier<T> {
+
+         * Gets a result.
+         *
+         * @return a result
+        T get();
+        }
+     */
+    public static void testSupplier(){
+
+        Supplier<Integer> sup = new Supplier<Integer>() {
+            @Override
+            public Integer get() {
+                return 1024;
+            }
+        };
+        System.out.println(sup.get());
+
+        Supplier<Integer> sup2 =()->{return 1024;};
+        System.out.println(sup2.get());
+    }
+    ```
+
 
 --------------------------------------------------------------
 
@@ -2605,3 +2759,4 @@ forBob(Bob that)
 [17]:https://www.bilibili.com/video/BV1Ri4y1g71L?p=51 
 [18]:https://github.com/abo-abo/org-fu/blob/master/org-fu.el 
 [19]:https://www.processon.com/view/600f95a3e401fd0a1f8b60b1?fromnew=1 
+[20]:https://www.bilibili.com/video/BV1B7411L7tE?p=25&spm_id_from=pageDriver 
