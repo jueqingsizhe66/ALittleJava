@@ -2737,7 +2737,33 @@ public interface Function<T, R> {
     ```
 
 
+学习[ Joor ][1]的[ Reflect ][2]也是类似
+
+```java
+ 
+//1、通过类名转换成一个Reflect对象：
+public static Reflect on(String name);
+public static Reflect on(String name, ClassLoader classLoader);
+public static Reflect on(Class<?> clazz);
+ 
+//2、将一个类对象转换成一个Reflect对象：
+public static Reflect on(Object object);
+
+//使用
+// All examples assume the following static import:
+import static org.joor.Reflect.*;
+ 
+String world = on("java.lang.String")  // on后面放入类的全名，这里是String类
+                .create("Hello World") // 将字符串“Hello World”，传入构造方法中
+                .call("substring", 6)  // 执行subString这个方法，并且传入6作为参数
+                .call("toString")      // 执行toString方法
+                .get();                // 得到包装好的类，这里是一个String对象
+```
+
+
 --------------------------------------------------------------
+--------------------------------------------------------------
+
 
 
 [1]: https://a-little-java-a-few-patterns.readthedocs.io/zh_CN/latest/
@@ -2760,3 +2786,5 @@ public interface Function<T, R> {
 [18]:https://github.com/abo-abo/org-fu/blob/master/org-fu.el 
 [19]:https://www.processon.com/view/600f95a3e401fd0a1f8b60b1?fromnew=1 
 [20]:https://www.bilibili.com/video/BV1B7411L7tE?p=25&spm_id_from=pageDriver 
+[21]: https://github.com/jOOQ/jOOR
+[22]: https://www.jianshu.com/p/1ba3680c114c
