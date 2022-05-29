@@ -2792,4 +2792,4 @@ String world = on("java.lang.String")  // on后面放入类的全名，这里是
 [20]:https://www.bilibili.com/video/BV1B7411L7tE?p=25&spm_id_from=pageDriver 
 [21]: https://github.com/jOOQ/jOOR
 [22]: https://www.jianshu.com/p/1ba3680c114c
-[23]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/image/recursive.jpg 
+[23]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/image/recursive.png 
