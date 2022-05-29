@@ -11,6 +11,10 @@ Introspect 和 retrospect具有类似的地方(review ,look back on, backcall)
 
 ![design][4]
 
+2022-05-29 new thought of visitor pattern: use this to recursive that,
+then return something what you want. This has closure function or not .
+That has natural recursion structure function.
+![this and that][23]
 ----------------------------------------------------------------
 
 根据本文的学习，应该反复问自己两个问题，每个类都有0和1的概念！
@@ -2788,3 +2792,4 @@ String world = on("java.lang.String")  // on后面放入类的全名，这里是
 [20]:https://www.bilibili.com/video/BV1B7411L7tE?p=25&spm_id_from=pageDriver 
 [21]: https://github.com/jOOQ/jOOR
 [22]: https://www.jianshu.com/p/1ba3680c114c
+[23]: https://github.com/jueqingsizhe66/ALittleJava/blob/master/image/recursive.jpg 
