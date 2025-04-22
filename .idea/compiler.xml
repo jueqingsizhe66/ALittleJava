@@ -9,8 +9,5 @@
         <module name="The-Little-Java" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="The-Little-Java" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>
