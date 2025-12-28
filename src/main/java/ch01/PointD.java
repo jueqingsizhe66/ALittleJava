@@ -1,8 +1,8 @@
-dpackage ch01;
+package ch01;
 
 //第二个程序 构造函数
 //   手动添加了构造函数 因为需要额外属性添加到构造函数
- abstract class PointD {
+abstract class PointD {
 
 }
 
